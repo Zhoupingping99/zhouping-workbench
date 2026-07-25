@@ -854,13 +854,43 @@ function switchTab(tabId) {
   render();
 }
 
+/* ---------- 待办状态本地存储（每日重置） ---------- */
+function getTodoDoneState() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('zhouping_todos') || '{}');
+    const today = getTodayStr();
+    // 如果存的日期不是今天，清空（每天自动重置）
+    if (saved.date !== today) return {};
+    return saved.done || {};
+  } catch(e) { return {}; }
+}
+
+function saveTodoDoneState(doneMap) {
+  localStorage.setItem('zhouping_todos', JSON.stringify({
+    date: getTodayStr(),
+    done: doneMap
+  }));
+}
+
 function toggleTodo(id) {
   const todo = WORKBENCH_DATA.todos.find(t => t.id === id);
   if (todo) {
     todo.done = !todo.done;
+    // 保存到本地
+    const doneMap = {};
+    WORKBENCH_DATA.todos.forEach(t => { if (t.done) doneMap[t.id] = true; });
+    saveTodoDoneState(doneMap);
     render();
     if (todo.done) showToast('✅ 完成一项！继续加油');
   }
+}
+
+/* 页面加载时恢复今日待办状态 */
+function restoreTodoState() {
+  const doneMap = getTodoDoneState();
+  WORKBENCH_DATA.todos.forEach(t => {
+    t.done = !!doneMap[t.id];
+  });
 }
 
 function toggleRecipe(i) {
@@ -944,5 +974,6 @@ function updateClock() {
 }
 
 /* ---------- 启动 ---------- */
+restoreTodoState();
 render();
 setInterval(updateClock, 60000);
