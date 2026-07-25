@@ -14,6 +14,7 @@ const TABS = [
   { id: 'recipe', name: '今日菜谱', icon: '🍳' },
   { id: 'running', name: '运动打卡', icon: '🏃‍♀️' },
   { id: 'notes', name: '备忘录', icon: '📝' },
+  { id: 'budget', name: '每日记账', icon: '💰' },
 ];
 
 /* ---------- 渲染顶部栏 ---------- */
@@ -636,6 +637,215 @@ function escapeHtml(str) {
   return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
+/* ---------- 渲染每日记账 ---------- */
+const DAILY_BUDGET = 100; // 每天预算100元
+
+function getBudgetData() {
+  try {
+    return JSON.parse(localStorage.getItem('zhouping_budget') || '{}');
+  } catch(e) { return {}; }
+}
+
+function saveBudgetData(data) {
+  localStorage.setItem('zhouping_budget', JSON.stringify(data));
+}
+
+function getTodayStr() {
+  const now = new Date();
+  return `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+}
+
+function formatDateCN(dateStr) {
+  const parts = dateStr.split('-');
+  return `${parts[1]}/${parts[2]}`;
+}
+
+function renderBudget() {
+  const data = getBudgetData();
+  const today = getTodayStr();
+  const todayRecords = data[today] || [];
+  const todayTotal = todayRecords.reduce((s, r) => s + r.amount, 0);
+  const todayRemain = DAILY_BUDGET - todayTotal;
+
+  // 计算历史记录（最近7天，不含今天）
+  const allDates = Object.keys(data).sort().reverse();
+  const historyDates = allDates.filter(d => d !== today).slice(0, 7);
+
+  // 计算本周总额
+  const now = new Date();
+  const weekStart = new Date(now);
+  weekStart.setDate(now.getDate() - now.getDay());
+  weekStart.setHours(0,0,0,0);
+  let weekTotal = 0;
+  let weekDays = 0;
+  allDates.forEach(d => {
+    const dateObj = new Date(d);
+    if (dateObj >= weekStart) {
+      weekTotal += (data[d] || []).reduce((s, r) => s + r.amount, 0);
+      if (data[d] && data[d].length > 0) weekDays++;
+    }
+  });
+
+  // 计算本月总额
+  let monthTotal = 0;
+  allDates.forEach(d => {
+    if (d.startsWith(`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`)) {
+      monthTotal += (data[d] || []).reduce((s, r) => s + r.amount, 0);
+    }
+  });
+
+  const isOver = todayTotal > DAILY_BUDGET;
+
+  return `
+    <!-- 今日预算概览卡片 -->
+    <div class="budget-today-card ${isOver ? 'over' : 'ok'}">
+      <div class="budget-today-top">
+        <div>
+          <div class="budget-today-label">📅 ${today.replace(/-/g,'/')} 今日预算</div>
+          <div class="budget-today-amount">¥${DAILY_BUDGET}</div>
+        </div>
+        <div style="text-align:right">
+          <div class="budget-today-label">${isOver ? '⚠️ 已超支' : '✅ 还能花'}</div>
+          <div class="budget-today-remain ${isOver ? 'text-over' : 'text-ok'}">${isOver ? '-' : ''}¥${Math.abs(todayRemain).toFixed(1)}</div>
+        </div>
+      </div>
+      <div class="budget-progress-bar">
+        <div class="budget-progress-fill ${isOver ? 'over' : 'ok'}" style="width:${Math.min(100, (todayTotal/DAILY_BUDGET)*100)}%"></div>
+      </div>
+      <div class="budget-today-stats">
+        <div class="budget-stat"><div class="val">¥${todayTotal.toFixed(1)}</div><div class="lbl">今日已花</div></div>
+        <div class="budget-stat"><div class="val">${todayRecords.length}</div><div class="lbl">笔数</div></div>
+        <div class="budget-stat"><div class="val">¥${weekTotal.toFixed(1)}</div><div class="lbl">本周累计</div></div>
+        <div class="budget-stat"><div class="val">¥${monthTotal.toFixed(1)}</div><div class="lbl">本月累计</div></div>
+      </div>
+    </div>
+
+    <!-- 添加记账 -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title"><span class="emoji">✏️</span>记一笔</div>
+      </div>
+      <div class="budget-input-row">
+        <select id="budget-category" class="budget-select">
+          <option value="餐饮">🍚 餐饮</option>
+          <option value="交通">🚗 交通</option>
+          <option value="买菜">🥬 买菜</option>
+          <option value="购物">🛍️ 购物</option>
+          <option value="咖啡">☕ 咖啡</option>
+          <option value="零食">🍪 零食</option>
+          <option value="日用">📦 日用</option>
+          <option value="其他">📝 其他</option>
+        </select>
+        <input id="budget-amount" type="number" step="0.1" placeholder="金额" class="budget-amount-input">
+        <input id="budget-note" placeholder="备注（选填）" class="budget-note-input">
+        <button class="btn btn-primary budget-add-btn" onclick="addBudgetRecord()">➕ 记账</button>
+      </div>
+    </div>
+
+    <!-- 今日明细 -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title"><span class="emoji">📋</span>今日明细</div>
+        <div class="card-actions">
+          <span style="font-size:12px;color:var(--text-light)">共${todayRecords.length}笔 · ¥${todayTotal.toFixed(1)}</span>
+        </div>
+      </div>
+      ${todayRecords.length === 0 ? `
+        <div style="text-align:center;padding:30px;color:var(--text-light)">
+          <div style="font-size:32px;margin-bottom:8px">💰</div>
+          <div style="font-size:13px">今天还没记账，记第一笔吧～</div>
+        </div>
+      ` : todayRecords.map((r, i) => `
+        <div class="budget-record-item">
+          <span class="budget-record-cat">${r.category}</span>
+          <span class="budget-record-note">${r.note ? escapeHtml(r.note) : ''}</span>
+          <span class="budget-record-time">${r.time}</span>
+          <span class="budget-record-amount">-¥${r.amount.toFixed(1)}</span>
+          <button class="budget-record-del" onclick="deleteBudgetRecord('${today}', ${i})">✕</button>
+        </div>
+      `).join('')}
+    </div>
+
+    <!-- 历史记录 -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title"><span class="emoji">📊</span>历史记录（最近7天）</div>
+      </div>
+      ${historyDates.length === 0 ? `
+        <div style="text-align:center;padding:20px;color:var(--text-light);font-size:13px">暂无历史记录</div>
+      ` : historyDates.map(d => {
+        const records = data[d] || [];
+        const total = records.reduce((s, r) => s + r.amount, 0);
+        const remain = DAILY_BUDGET - total;
+        const dayOver = total > DAILY_BUDGET;
+        const dayDate = new Date(d);
+        const dayNames = ['周日','周一','周二','周三','周四','周五','周六'];
+        return `
+          <div class="budget-history-item">
+            <div class="budget-history-date">
+              <span style="font-weight:600">${formatDateCN(d)}</span>
+              <span style="font-size:11px;color:var(--text-light);margin-left:6px">${dayNames[dayDate.getDay()]}</span>
+              <span style="font-size:11px;color:var(--text-light);margin-left:6px">${records.length}笔</span>
+            </div>
+            <div class="budget-history-amount">
+              <span style="color:var(--text);font-weight:600">¥${total.toFixed(1)}</span>
+              <span class="budget-history-status ${dayOver ? 'over' : 'ok'}">
+                ${dayOver ? `超支 ¥${Math.abs(remain).toFixed(1)}` : `结余 ¥${remain.toFixed(1)}`}
+              </span>
+            </div>
+          </div>
+        `;
+      }).join('')}
+    </div>
+
+    <!-- 预算说明 -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title"><span class="emoji">💡</span>记账说明</div>
+      </div>
+      <div style="font-size:13px;line-height:1.9;color:var(--text-light)">
+        <p>📌 每日预算：<strong>¥${DAILY_BUDGET}</strong></p>
+        <p>📌 每天记录支出后，自动计算当天总和与剩余</p>
+        <p>📌 超出预算显示红色，有结余显示绿色</p>
+        <p>📌 历史记录显示最近7天每天的花费和超支/结余</p>
+        <p>📌 数据存在手机本地，不会丢失</p>
+      </div>
+    </div>
+  `;
+}
+
+/* ---------- 记账交互 ---------- */
+function addBudgetRecord() {
+  const category = document.getElementById('budget-category').value;
+  const amount = parseFloat(document.getElementById('budget-amount').value);
+  const note = document.getElementById('budget-note').value.trim();
+  if (!amount || amount <= 0) { showToast('⚠️ 请输入有效金额'); return; }
+  const data = getBudgetData();
+  const today = getTodayStr();
+  if (!data[today]) data[today] = [];
+  const now = new Date();
+  data[today].push({
+    category: category,
+    amount: amount,
+    note: note,
+    time: `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`
+  });
+  saveBudgetData(data);
+  showToast(`✅ 已记账 ¥${amount.toFixed(1)}`);
+  render();
+}
+
+function deleteBudgetRecord(date, index) {
+  const data = getBudgetData();
+  if (data[date]) {
+    data[date].splice(index, 1);
+    if (data[date].length === 0) delete data[date];
+    saveBudgetData(data);
+    showToast('🗑️ 已删除');
+    render();
+  }
+}
+
 /* ---------- 交互逻辑 ---------- */
 let currentTab = 'overview';
 
@@ -719,6 +929,7 @@ function render() {
     recipe: renderRecipe,
     running: renderRunning,
     notes: renderNotes,
+    budget: renderBudget,
   };
   app.innerHTML = renderTopbar() + `<div class="layout">` + renderNav(currentTab) + `<div class="main"><div class="tab-content active">${content[currentTab]()}</div></div></div>`;
 }
