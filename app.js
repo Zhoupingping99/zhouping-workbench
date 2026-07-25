@@ -15,6 +15,7 @@ const TABS = [
   { id: 'running', name: '运动打卡', icon: '🏃‍♀️' },
   { id: 'notes', name: '备忘录', icon: '📝' },
   { id: 'budget', name: '每日记账', icon: '💰' },
+  { id: 'gift', name: '份子钱账本', icon: '🧧' },
 ];
 
 /* ---------- 渲染顶部栏 ---------- */
@@ -846,6 +847,157 @@ function deleteBudgetRecord(date, index) {
   }
 }
 
+/* ---------- 渲染份子钱账本 ---------- */
+function getGiftData() {
+  try {
+    return JSON.parse(localStorage.getItem('zhouping_gifts') || '[]');
+  } catch(e) { return []; }
+}
+
+function saveGiftData(data) {
+  localStorage.setItem('zhouping_gifts', JSON.stringify(data));
+}
+
+function renderGift() {
+  const gifts = getGiftData();
+
+  // 统计
+  const totalIn = gifts.filter(g => g.type === '收').reduce((s, g) => s + g.amount, 0);
+  const totalOut = gifts.filter(g => g.type === '送').reduce((s, g) => s + g.amount, 0);
+  const balance = totalIn - totalOut;
+  const countIn = gifts.filter(g => g.type === '收').length;
+  const countOut = gifts.filter(g => g.type === '送').length;
+
+  // 按时间倒序
+  const sorted = [...gifts].sort((a, b) => (b.date + b.time).localeCompare(a.date + a.time));
+
+  return `
+    <!-- 汇总卡片 -->
+    <div class="gift-summary-card ${balance >= 0 ? 'positive' : 'negative'}">
+      <div class="gift-summary-top">
+        <div>
+          <div style="font-size:12px;opacity:0.9">🧧 份子钱总账</div>
+          <div style="font-size:32px;font-weight:700;margin-top:4px">${balance >= 0 ? '+' : ''}¥${balance.toFixed(0)}</div>
+          <div style="font-size:11px;opacity:0.85;margin-top:2px">${balance >= 0 ? '收大于送，美滋滋' : '送多了，心疼…'}</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:11px;opacity:0.85">共 ${gifts.length} 笔</div>
+        </div>
+      </div>
+      <div class="gift-stats-row">
+        <div class="gift-stat">
+          <div class="val">¥${totalIn.toFixed(0)}</div>
+          <div class="lbl">📥 收到 (${countIn}笔)</div>
+        </div>
+        <div class="gift-stat">
+          <div class="val">¥${totalOut.toFixed(0)}</div>
+          <div class="lbl">📤 送出 (${countOut}笔)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 记录一笔 -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title"><span class="emoji">✏️</span>记一笔份子钱</div>
+      </div>
+      <div class="gift-input-area">
+        <div class="gift-input-row">
+          <select id="gift-type" class="gift-type-select">
+            <option value="收">📥 收到</option>
+            <option value="送">📤 送出</option>
+          </select>
+          <input id="gift-amount" type="number" step="100" placeholder="金额（元）" class="gift-amount-input">
+          <input id="gift-name" placeholder="对方姓名" class="gift-name-input">
+        </div>
+        <div class="gift-input-row">
+          <input id="gift-event" placeholder="什么事（结婚/满月/乔迁…）" class="gift-event-input">
+          <input id="gift-date" type="date" class="gift-date-input">
+          <button class="btn btn-primary gift-add-btn" onclick="addGiftRecord()">➕ 记录</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 记录列表 -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title"><span class="emoji">📋</span>份子钱明细</div>
+        <div class="card-actions">
+          <span style="font-size:12px;color:var(--text-light)">共${gifts.length}笔</span>
+        </div>
+      </div>
+      ${sorted.length === 0 ? `
+        <div style="text-align:center;padding:30px;color:var(--text-light)">
+          <div style="font-size:32px;margin-bottom:8px">🧧</div>
+          <div style="font-size:13px">还没有记录，记第一笔吧～</div>
+        </div>
+      ` : sorted.map((g, i) => `
+        <div class="gift-record-item">
+          <div class="gift-record-type ${g.type === '收' ? 'in' : 'out'}">${g.type === '收' ? '📥' : '📤'} ${g.type}</div>
+          <div class="gift-record-info">
+            <div class="gift-record-name">${escapeHtml(g.name)} <span style="font-size:11px;color:var(--text-light)">· ${escapeHtml(g.event || '未填写')}</span></div>
+            <div class="gift-record-date">${g.date || '未填日期'}</div>
+          </div>
+          <div class="gift-record-amount ${g.type === '收' ? 'in' : 'out'}">${g.type === '收' ? '+' : '-'}¥${g.amount.toFixed(0)}</div>
+          <button class="gift-record-del" onclick="deleteGiftRecord('${g.id}')">✕</button>
+        </div>
+      `).join('')}
+    </div>
+
+    <!-- 说明 -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title"><span class="emoji">💡</span>使用说明</div>
+      </div>
+      <div style="font-size:13px;line-height:1.9;color:var(--text-light)">
+        <p>📌 记录每笔份子钱：收到/送出、金额、对方姓名、什么事</p>
+        <p>📌 自动统计总收入、总送出、结余</p>
+        <p>📌 结余为正=收大于送，结余为负=送多了</p>
+        <p>📌 数据存在手机本地，不会丢失</p>
+        <p>📌 以后随礼前查一下，避免记错金额</p>
+      </div>
+    </div>
+  `;
+}
+
+/* ---------- 份子钱交互 ---------- */
+function addGiftRecord() {
+  const type = document.getElementById('gift-type').value;
+  const amount = parseFloat(document.getElementById('gift-amount').value);
+  const name = document.getElementById('gift-name').value.trim();
+  const event = document.getElementById('gift-event').value.trim();
+  const date = document.getElementById('gift-date').value;
+
+  if (!amount || amount <= 0) { showToast('⚠️ 请输入金额'); return; }
+  if (!name) { showToast('⚠️ 请输入对方姓名'); return; }
+
+  const gifts = getGiftData();
+  const now = new Date();
+  gifts.push({
+    id: 'g' + Date.now(),
+    type: type,
+    amount: amount,
+    name: name,
+    event: event,
+    date: date || getTodayStr(),
+    time: `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`
+  });
+  saveGiftData(gifts);
+  showToast(`✅ 已记录 ${type} ¥${amount.toFixed(0)}`);
+  render();
+}
+
+function deleteGiftRecord(id) {
+  const gifts = getGiftData();
+  const index = gifts.findIndex(g => g.id === id);
+  if (index >= 0) {
+    gifts.splice(index, 1);
+    saveGiftData(gifts);
+    showToast('🗑️ 已删除');
+    render();
+  }
+}
+
 /* ---------- 交互逻辑 ---------- */
 let currentTab = 'overview';
 
@@ -960,6 +1112,7 @@ function render() {
     running: renderRunning,
     notes: renderNotes,
     budget: renderBudget,
+    gift: renderGift,
   };
   app.innerHTML = renderTopbar() + `<div class="layout">` + renderNav(currentTab) + `<div class="main"><div class="tab-content active">${content[currentTab]()}</div></div></div>`;
 }

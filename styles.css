@@ -508,3 +508,47 @@ body {
   .budget-add-btn { width: 100%; }
   .budget-record-note { font-size: 12px; }
 }
+
+/* ========== 份子钱账本 ========== */
+.gift-summary-card {
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 20px;
+  color: #fff;
+  box-shadow: var(--shadow);
+}
+.gift-summary-card.positive { background: linear-gradient(135deg, #dc3545 0%, #e879a6 100%); }
+.gift-summary-card.negative { background: linear-gradient(135deg, #6c757d 0%, #95a5a6 100%); }
+.gift-summary-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+.gift-stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.2); }
+.gift-stat { text-align: center; }
+.gift-stat .val { font-size: 22px; font-weight: 700; }
+.gift-stat .lbl { font-size: 11px; opacity: 0.85; margin-top: 2px; }
+
+.gift-input-area { display: flex; flex-direction: column; gap: 8px; }
+.gift-input-row { display: flex; gap: 8px; align-items: center; }
+.gift-type-select { padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px; background: #fff; outline: none; }
+.gift-amount-input { padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px; width: 120px; outline: none; }
+.gift-name-input { padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px; flex: 1; min-width: 100px; outline: none; }
+.gift-event-input { padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px; flex: 1; min-width: 120px; outline: none; }
+.gift-date-input { padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px; outline: none; }
+.gift-add-btn { padding: 8px 20px; font-size: 13px; white-space: nowrap; }
+
+.gift-record-item { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+.gift-record-item:last-child { border-bottom: none; }
+.gift-record-type { font-size: 11px; padding: 3px 8px; border-radius: 6px; font-weight: 600; white-space: nowrap; }
+.gift-record-type.in { background: #d4edda; color: #155724; }
+.gift-record-type.out { background: #f8d7da; color: #721c24; }
+.gift-record-info { flex: 1; min-width: 0; }
+.gift-record-name { font-size: 13px; font-weight: 500; }
+.gift-record-date { font-size: 11px; color: var(--text-light); margin-top: 2px; }
+.gift-record-amount { font-size: 15px; font-weight: 700; white-space: nowrap; }
+.gift-record-amount.in { color: #28a745; }
+.gift-record-amount.out { color: #dc3545; }
+.gift-record-del { width: 22px; height: 22px; border: none; background: #f8d7da; color: #dc3545; border-radius: 50%; cursor: pointer; font-size: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+@media (max-width: 768px) {
+  .gift-input-row { flex-wrap: wrap; }
+  .gift-type-select, .gift-amount-input, .gift-name-input, .gift-event-input, .gift-date-input { width: 100%; }
+  .gift-add-btn { width: 100%; }
+}
