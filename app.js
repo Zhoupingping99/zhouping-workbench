@@ -664,9 +664,23 @@ function formatDateCN(dateStr) {
 function renderBudget() {
   const data = getBudgetData();
   const today = getTodayStr();
+
+  // 计算前一天滚动结余
+  function getYesterdayStr(d) {
+    const date = new Date(d + 'T00:00:00');
+    date.setDate(date.getDate() - 1);
+    return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+  }
+  const yesterday = getYesterdayStr(today);
+  const yesterdayRecords = data[yesterday] || [];
+  const yesterdayTotal = yesterdayRecords.reduce((s, r) => s + r.amount, 0);
+  const yesterdayRemain = DAILY_BUDGET - yesterdayTotal;
+  // 今日实际预算 = 100 + 昨天结余（负数为超支抵扣）
+  const todayBudget = DAILY_BUDGET + yesterdayRemain;
+
   const todayRecords = data[today] || [];
   const todayTotal = todayRecords.reduce((s, r) => s + r.amount, 0);
-  const todayRemain = DAILY_BUDGET - todayTotal;
+  const todayRemain = todayBudget - todayTotal;
 
   // 计算历史记录（最近7天，不含今天）
   const allDates = Object.keys(data).sort().reverse();
@@ -695,7 +709,8 @@ function renderBudget() {
     }
   });
 
-  const isOver = todayTotal > DAILY_BUDGET;
+  const isOver = todayTotal > todayBudget;
+  const hasYesterday = yesterdayRecords.length > 0;
 
   return `
     <!-- 今日预算概览卡片 -->
@@ -703,7 +718,14 @@ function renderBudget() {
       <div class="budget-today-top">
         <div>
           <div class="budget-today-label">📅 ${today.replace(/-/g,'/')} 今日预算</div>
-          <div class="budget-today-amount">¥${DAILY_BUDGET}</div>
+          <div class="budget-today-amount">¥${todayBudget.toFixed(1)}</div>
+          ${hasYesterday ? `
+            <div style="font-size:11px;opacity:0.85;margin-top:4px">
+              ${yesterdayRemain >= 0
+                ? `✅ 含昨日结余 ¥${yesterdayRemain.toFixed(1)}`
+                : `⚠️ 含昨日超支 ¥${Math.abs(yesterdayRemain).toFixed(1)}`}
+            </div>
+          ` : ''}
         </div>
         <div style="text-align:right">
           <div class="budget-today-label">${isOver ? '⚠️ 已超支' : '✅ 还能花'}</div>
@@ -711,7 +733,7 @@ function renderBudget() {
         </div>
       </div>
       <div class="budget-progress-bar">
-        <div class="budget-progress-fill ${isOver ? 'over' : 'ok'}" style="width:${Math.min(100, (todayTotal/DAILY_BUDGET)*100)}%"></div>
+        <div class="budget-progress-fill ${isOver ? 'over' : 'ok'}" style="width:${Math.min(100, (todayTotal/todayBudget)*100)}%"></div>
       </div>
       <div class="budget-today-stats">
         <div class="budget-stat"><div class="val">¥${todayTotal.toFixed(1)}</div><div class="lbl">今日已花</div></div>
