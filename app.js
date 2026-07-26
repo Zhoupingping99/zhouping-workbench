@@ -4,15 +4,15 @@ const app = document.getElementById('app');
 
 /* ---------- Tab配置 ---------- */
 const TABS = [
-  { id: 'overview', name: '今日概览', icon: '?' },
-  { id: 'douyin', name: '抖音热点', icon: '?' },
-  { id: 'accounts', name: '抖音号管理', icon: '?' },
-  { id: 'todo', name: '今日待办', icon: '?' },
-  { id: 'recipe', name: '今日菜谱', icon: '?' },
-  { id: 'running', name: '运动打卡', icon: '??♀?' },
-  { id: 'notes', name: '备忘录', icon: '?' },
-  { id: 'budget', name: '每日记账', icon: '?' },
-  { id: 'gift', name: '份子钱账本', icon: '?' },
+  { id: 'overview', name: '今日概览', icon: '📊' },
+  { id: 'douyin', name: '抖音热点', icon: '🔥' },
+  { id: 'accounts', name: '抖音号管理', icon: '📱' },
+  { id: 'todo', name: '今日待办', icon: '✅' },
+  { id: 'recipe', name: '今日菜谱', icon: '🍳' },
+  { id: 'running', name: '运动打卡', icon: '🏃‍♀️' },
+  { id: 'notes', name: '备忘录', icon: '📝' },
+  { id: 'budget', name: '每日记账', icon: '💰' },
+  { id: 'gift', name: '份子钱账本', icon: '🧧' },
 ];
 
 /* ---------- 渲染顶部栏 ---------- */
@@ -233,7 +233,7 @@ function renderTodo() {
     if (!groups[t.category]) groups[t.category] = [];
     groups[t.category].push(t);
   });
-  const groupIcons = { '工作':'?', '文案':'??', '抖音':'?', '回访':'?', '运动':'??♀?', '生活':'?' };
+  const groupIcons = { '工作':'💼', '文案':'✍️', '抖音':'📱', '回访':'📞', '运动':'🏃‍♀️', '生活':'🏠' };
   return `
     <div class="card">
       <div class="card-header">
@@ -244,7 +244,7 @@ function renderTodo() {
       </div>
       ${Object.keys(groups).map(cat => `
         <div style="margin-bottom:16px">
-          <div style="font-size:13px;font-weight:600;color:var(--text-light);margin-bottom:8px">${groupIcons[cat]||'?'} ${cat}</div>
+          <div style="font-size:13px;font-weight:600;color:var(--text-light);margin-bottom:8px">${groupIcons[cat]||'📌'} ${cat}</div>
           <div class="todo-list">
             ${groups[cat].map(t => `
               <div class="todo-item ${t.done ? 'done' : ''}" onclick="toggleTodo(${t.id})">
@@ -336,7 +336,7 @@ function renderRunning() {
           <div style="padding:12px 4px;border-radius:8px;background:${v > 0 ? '#d4edda' : '#f8f9fa'}">
             <div style="font-size:11px;color:var(--text-light)">${weekDays[i]}</div>
             <div style="font-size:16px;font-weight:700;margin:4px 0">${v > 0 ? v + "'" : '—'}</div>
-            <div style="font-size:10px;color:${v >= r.target ? '#28a745' : '#dc3545'}">${v >= r.target ? '?' : v > 0 ? '半' : '休'}</div>
+            <div style="font-size:10px;color:${v >= r.target ? '#28a745' : '#dc3545'}">${v >= r.target ? '✓' : v > 0 ? '半' : '休'}</div>
           </div>
         `).join('')}
       </div>
@@ -659,7 +659,7 @@ function renderGift() {
         </div>
       ` : sorted.map(g => `
         <div class="gift-record-item">
-          <div class="gift-record-type ${g.type === '收' ? 'in' : 'out'}">${g.type === '收' ? '?' : '?'} ${g.type}</div>
+          <div class="gift-record-type ${g.type === '收' ? 'in' : 'out'}">${g.type === '收' ? '📥' : '📤'} ${g.type}</div>
           <div class="gift-record-info">
             <div class="gift-record-name">${escapeHtml(g.name)} <span style="font-size:11px;color:var(--text-light)">· ${escapeHtml(g.event || '未填写')}</span></div>
             <div class="gift-record-date">${g.date || '未填日期'}</div>
