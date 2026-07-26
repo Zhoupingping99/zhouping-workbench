@@ -1,35 +1,35 @@
-/* ========== ÖÜÆ¼¹¤×÷Ì¨ ¡¤ Ó¦ÓÃÂß¼­ ========== */
+/* ========== å‘¨èå·¥ä½œå° Â· åº”ç”¨é€»è¾‘ ========== */
 
 const app = document.getElementById('app');
 
-/* ---------- TabÅäÖÃ ---------- */
+/* ---------- Tabé…ç½® ---------- */
 const TABS = [
-  { id: 'overview', name: '½ñÈÕ¸ÅÀÀ', icon: '?' },
-  { id: 'douyin', name: '¶¶ÒôÈÈµã', icon: '?' },
-  { id: 'accounts', name: '¶¶ÒôºÅ¹ÜÀí', icon: '?' },
-  { id: 'todo', name: '½ñÈÕ´ı°ì', icon: '?' },
-  { id: 'recipe', name: '½ñÈÕ²ËÆ×', icon: '?' },
-  { id: 'running', name: 'ÔË¶¯´ò¿¨', icon: '??¡â?' },
-  { id: 'notes', name: '±¸ÍüÂ¼', icon: '?' },
-  { id: 'budget', name: 'Ã¿ÈÕ¼ÇÕË', icon: '?' },
-  { id: 'gift', name: '·İ×ÓÇ®ÕË±¾', icon: '?' },
+  { id: 'overview', name: 'ä»Šæ—¥æ¦‚è§ˆ', icon: '?' },
+  { id: 'douyin', name: 'æŠ–éŸ³çƒ­ç‚¹', icon: '?' },
+  { id: 'accounts', name: 'æŠ–éŸ³å·ç®¡ç†', icon: '?' },
+  { id: 'todo', name: 'ä»Šæ—¥å¾…åŠ', icon: '?' },
+  { id: 'recipe', name: 'ä»Šæ—¥èœè°±', icon: '?' },
+  { id: 'running', name: 'è¿åŠ¨æ‰“å¡', icon: '??â™€?' },
+  { id: 'notes', name: 'å¤‡å¿˜å½•', icon: '?' },
+  { id: 'budget', name: 'æ¯æ—¥è®°è´¦', icon: '?' },
+  { id: 'gift', name: 'ä»½å­é’±è´¦æœ¬', icon: '?' },
 ];
 
-/* ---------- äÖÈ¾¶¥²¿À¸ ---------- */
+/* ---------- æ¸²æŸ“é¡¶éƒ¨æ  ---------- */
 function renderTopbar() {
   const now = new Date();
-  const days = ['ÖÜÈÕ','ÖÜÒ»','ÖÜ¶ş','ÖÜÈı','ÖÜËÄ','ÖÜÎå','ÖÜÁù'];
-  const dateStr = `${now.getFullYear()}Äê${now.getMonth()+1}ÔÂ${now.getDate()}ÈÕ`;
+  const days = ['å‘¨æ—¥','å‘¨ä¸€','å‘¨äºŒ','å‘¨ä¸‰','å‘¨å››','å‘¨äº”','å‘¨å…­'];
+  const dateStr = `${now.getFullYear()}å¹´${now.getMonth()+1}æœˆ${now.getDate()}æ—¥`;
   const dayStr = days[now.getDay()];
   const timeStr = now.toTimeString().slice(0,5);
   return `
     <div class="topbar">
       <div class="topbar-inner">
         <div class="topbar-title">
-          <div class="avatar">ÖÜ</div>
+          <div class="avatar">å‘¨</div>
           <div>
-            <h1>ÖÜÆ¼¹¤×÷Ì¨</h1>
-            <div class="subtitle">»éÉ´ÉãÓ°ÃÅÊĞÏúÊÛ ¡¤ Ã¿ÈÕ¹¤×÷Ì¨</div>
+            <h1>å‘¨èå·¥ä½œå°</h1>
+            <div class="subtitle">å©šçº±æ‘„å½±é—¨å¸‚é”€å”® Â· æ¯æ—¥å·¥ä½œå°</div>
           </div>
         </div>
         <div class="topbar-right">
@@ -42,7 +42,7 @@ function renderTopbar() {
     </div>`;
 }
 
-/* ---------- äÖÈ¾×ó²àµ¼º½ ---------- */
+/* ---------- æ¸²æŸ“å·¦ä¾§å¯¼èˆª ---------- */
 function renderNav(activeTab) {
   const todoCount = WORKBENCH_DATA.todos.filter(t => !t.done).length;
   return `
@@ -57,7 +57,7 @@ function renderNav(activeTab) {
     </div>`;
 }
 
-/* ---------- äÖÈ¾¸ÅÀÀ ---------- */
+/* ---------- æ¸²æŸ“æ¦‚è§ˆ ---------- */
 function renderOverview() {
   const todos = WORKBENCH_DATA.todos;
   const doneCount = todos.filter(t => t.done).length;
@@ -70,47 +70,47 @@ function renderOverview() {
       <div class="overview-card">
         <div class="icon pink">?</div>
         <div class="info">
-          <div class="label">½ñÈÕ´ı°ì</div>
+          <div class="label">ä»Šæ—¥å¾…åŠ</div>
           <div class="value">${doneCount}/${totalCount}</div>
-          <div class="extra">${doneCount < totalCount ? `»¹ÓĞ${totalCount-doneCount}Ïî´ıÍê³É` : 'È«²¿Íê³É ?'}</div>
+          <div class="extra">${doneCount < totalCount ? `è¿˜æœ‰${totalCount-doneCount}é¡¹å¾…å®Œæˆ` : 'å…¨éƒ¨å®Œæˆ ?'}</div>
         </div>
       </div>
       <div class="overview-card">
         <div class="icon blue">?</div>
         <div class="info">
-          <div class="label">¶¶ÒôÈÈµã</div>
+          <div class="label">æŠ–éŸ³çƒ­ç‚¹</div>
           <div class="value">${hotCount}</div>
-          <div class="extra">Ìõ¿É¶ş´´ÄÚÈİ</div>
+          <div class="extra">æ¡å¯äºŒåˆ›å†…å®¹</div>
         </div>
       </div>
       <div class="overview-card">
-        <div class="icon purple">??¡â?</div>
+        <div class="icon purple">??â™€?</div>
         <div class="info">
-          <div class="label">ÅÜ²½´ò¿¨</div>
-          <div class="value">${runDone ? 'ÒÑÍê³É' : 'Î´Íê³É'}</div>
-          <div class="extra">Ä¿±ê${WORKBENCH_DATA.run.target}·ÖÖÓ ¡¤ ÒÑÁ¬Ğø${WORKBENCH_DATA.run.streak}Ìì</div>
+          <div class="label">è·‘æ­¥æ‰“å¡</div>
+          <div class="value">${runDone ? 'å·²å®Œæˆ' : 'æœªå®Œæˆ'}</div>
+          <div class="extra">ç›®æ ‡${WORKBENCH_DATA.run.target}åˆ†é’Ÿ Â· å·²è¿ç»­${WORKBENCH_DATA.run.streak}å¤©</div>
         </div>
       </div>
       <div class="overview-card">
         <div class="icon green">?</div>
         <div class="info">
-          <div class="label">½ñÈÕ²ËÆ×</div>
+          <div class="label">ä»Šæ—¥èœè°±</div>
           <div class="value">${WORKBENCH_DATA.recipes.length}</div>
-          <div class="extra">µÀ¼Ò³£²Ë×ö·¨</div>
+          <div class="extra">é“å®¶å¸¸èœåšæ³•</div>
         </div>
       </div>
     </div>
 
     <div class="card">
       <div class="card-header">
-        <div class="card-title"><span class="emoji">?</span>½ñÈÕÖØµã</div>
+        <div class="card-title"><span class="emoji">?</span>ä»Šæ—¥é‡ç‚¹</div>
       </div>
       <div class="todo-list">
         ${todos.filter(t => t.priority === 'high' && !t.done).map(t => `
           <div class="todo-item" onclick="toggleTodo(${t.id})">
             <div class="todo-checkbox ${t.done ? 'checked' : ''}"></div>
             <div class="todo-text">${t.text}</div>
-            <div class="todo-priority high">½ô¼±</div>
+            <div class="todo-priority high">ç´§æ€¥</div>
             <div class="todo-time">${t.time}</div>
           </div>
         `).join('')}
@@ -119,14 +119,14 @@ function renderOverview() {
   `;
 }
 
-/* ---------- äÖÈ¾¶¶ÒôÈÈµã ---------- */
+/* ---------- æ¸²æŸ“æŠ–éŸ³çƒ­ç‚¹ ---------- */
 function renderDouyin() {
   return `
     <div class="card">
       <div class="card-header">
-        <div class="card-title"><span class="emoji">?</span>¶¶Òô»éÉ´ÉãÓ°ÈÈµã ¡¤ ¿É¶ş´´ÊÓÆµ</div>
+        <div class="card-title"><span class="emoji">?</span>æŠ–éŸ³å©šçº±æ‘„å½±çƒ­ç‚¹ Â· å¯äºŒåˆ›è§†é¢‘</div>
         <div class="card-actions">
-          <button class="btn btn-sm" onclick="refreshHot()">? Ë¢ĞÂÈÈµã</button>
+          <button class="btn btn-sm" onclick="refreshHot()">? åˆ·æ–°çƒ­ç‚¹</button>
         </div>
       </div>
       <div class="hot-grid">
@@ -136,8 +136,8 @@ function renderDouyin() {
               <div class="video-bg">${h.img}</div>
               <div class="video-gradient"></div>
               <div class="video-top">
-                <span class="rank-badge">? µÚ${h.rank}Î»</span>
-                <span class="hot-label">¶¶ÒôÈÈ°ñ</span>
+                <span class="rank-badge">? ç¬¬${h.rank}ä½</span>
+                <span class="hot-label">æŠ–éŸ³çƒ­æ¦œ</span>
               </div>
               <div class="video-screenshot">${h.screenshot}</div>
               <div class="video-bottom">
@@ -176,14 +176,14 @@ function getHotBgColor(rank) {
   return colors[(rank - 1) % colors.length];
 }
 
-/* ---------- äÖÈ¾¶¶ÒôºÅ¹ÜÀí ---------- */
+/* ---------- æ¸²æŸ“æŠ–éŸ³å·ç®¡ç† ---------- */
 function renderAccounts() {
   return `
     <div class="card">
       <div class="card-header">
-        <div class="card-title"><span class="emoji">?</span>ÎÒµÄ¶¶ÒôºÅ¹ÜÀí</div>
+        <div class="card-title"><span class="emoji">?</span>æˆ‘çš„æŠ–éŸ³å·ç®¡ç†</div>
         <div class="card-actions">
-          <span style="font-size:12px;color:var(--text-light)">4¸öºÅ ¡¤ ÊµÊ±Êı¾İ</span>
+          <span style="font-size:12px;color:var(--text-light)">4ä¸ªå· Â· å®æ—¶æ•°æ®</span>
         </div>
       </div>
       <div class="account-grid">
@@ -194,52 +194,52 @@ function renderAccounts() {
               <div>
                 <div class="acc-name">${a.name}</div>
                 <div class="acc-type">${a.type}</div>
-                <div style="font-size:11px;color:var(--text-light);margin-top:2px">¶¶ÒôºÅ£º${a.douyinId || '-'}</div>
+                <div style="font-size:11px;color:var(--text-light);margin-top:2px">æŠ–éŸ³å·ï¼š${a.douyinId || '-'}</div>
               </div>
             </div>
             <div style="font-size:12px;color:var(--text-light);line-height:1.5;margin-bottom:10px;padding:8px;background:var(--bg);border-radius:6px">
-              <strong>¼ò½é£º</strong>${a.bio}
+              <strong>ç®€ä»‹ï¼š</strong>${a.bio}
             </div>
             <div class="acc-stats">
-              <div class="acc-stat"><div class="num">${a.followers}</div><div class="lbl">·ÛË¿</div></div>
-              <div class="acc-stat"><div class="num">${a.likes}</div><div class="lbl">×ÜµãÔŞ</div></div>
-              <div class="acc-stat"><div class="num">${a.works}</div><div class="lbl">×÷Æ·Êı</div></div>
+              <div class="acc-stat"><div class="num">${a.followers}</div><div class="lbl">ç²‰ä¸</div></div>
+              <div class="acc-stat"><div class="num">${a.likes}</div><div class="lbl">æ€»ç‚¹èµ</div></div>
+              <div class="acc-stat"><div class="num">${a.works}</div><div class="lbl">ä½œå“æ•°</div></div>
             </div>
-            <div class="acc-suggest"><strong>? ÔËÓª½¨Òé£º</strong>${a.suggestion}</div>
-            <div class="acc-suggest" style="margin-top:8px;padding-top:8px;border-top:1px dashed var(--border)"><strong>?? ½üÆÚÎÊÌâ£º</strong>${a.recentIssue}</div>
+            <div class="acc-suggest"><strong>? è¿è¥å»ºè®®ï¼š</strong>${a.suggestion}</div>
+            <div class="acc-suggest" style="margin-top:8px;padding-top:8px;border-top:1px dashed var(--border)"><strong>?? è¿‘æœŸé—®é¢˜ï¼š</strong>${a.recentIssue}</div>
           </div>
         `).join('')}
       </div>
     </div>
     <div class="card">
       <div class="card-header">
-        <div class="card-title"><span class="emoji">?</span>·¢²¼ÓÅ»¯¸´ÅÌ</div>
+        <div class="card-title"><span class="emoji">?</span>å‘å¸ƒä¼˜åŒ–å¤ç›˜</div>
       </div>
       <div style="font-size:13px;line-height:1.8;color:var(--text-light)">
-        <p><strong>1. ·¢²¼Ê±¼äÓÅ»¯£º</strong>½¨Òé¹Ì¶¨·¢²¼Ê±¼ä£ºÔçÉÏ7:30-8:30£¨Ôç°²£©¡¢ÖĞÎç12:00-12:30£¨ÎçĞİ£©¡¢ÍíÉÏ20:00-22:00£¨Ë¯Ç°¸ß·å£©¡£ÌØ±ğÊÇÖ÷ºÅ³ÉÆ·ºÅ£¬ÍíÉÏ8µã·¢²¼¿ÍÆ¬×ª»¯ÂÊ×î¸ß¡£</p>
-        <p style="margin-top:10px"><strong>2. ±êÌâÓÅ»¯Ä£°å£º</strong>Ç°3Ãë±ØĞëÓĞ¹³×Ó¡£ÍÆ¼ö¿ªÍ·£º¢Ù"ÍòÖİ±¸»é½ãÃÃ¿´¹ıÀ´£¡"¢Ú"ÔÚÍòÖİÅÄ10Äê»éÉ´ÕÕ£¬·¢ÏÖ¡­"¢Û"Ç§Íò²»ÒªÕâÑùÅÄ»éÉ´£¡"¢Ü"ĞÂÈËµÚÒ»ÊÓ½Çvlog£ü´Ó½ôÕÅµ½¡­"</p>
-        <p style="margin-top:10px"><strong>3. »°Ìâ±êÇ©×éºÏ£º</strong>Ã¿ÌõÊÓÆµ´ø5-8¸ö±êÇ©¡£Àı£º#ÍòÖİ»éÉ´ÕÕ #ÍòÖİ»éÉ´ÉãÓ° #ÍòÖİ±¸»é #»éÉ´ÕÕ»¨Ğõ #ÖØÇì»éÉ´ÕÕ #ÍòÖİÌ½µê #±¸»é¹¥ÂÔ #¿ÍÆ¬·ÖÏí</p>
-        <p style="margin-top:10px"><strong>4. ËÄÕËºÅÁª¶¯£º</strong>Éú»îºÅ£¨Æ¼Æ¼Æ¼ÖÜÖÜ£©¡ú Ö÷ºÅ£¨ÏÄÄ¿ÉãÓ°¹¤×÷ÊÒ£©¡ú »¨ĞõºÅ£¨ÍòÖİÏÄÄ¿ÉãÓ°»¨ĞõºÅ£©¡ú VlogºÅ£¨ÔÂÁÁÓÊµİÔ±£©¡£Ã¿¸öÊÓÆµ½áÎ²»òÆÀÂÛÇøÖÃ¶¥»¥Ïà@£¬ĞÎ³É±Õ»·¡£</p>
-        <p style="margin-top:10px"><strong>5. ±äÏÖÁ´Â·£º</strong>¸öÈËºÅ¹Ò³÷´°×ö¿§·ÈµÈÉú»î·½Ê½´ø»õ£»¹¤×÷ºÅÖ÷ºÅ¹ÒÍÅ¹º/ÃÅµê/Ë½ĞÅÒıÁ÷£»ÆäËû¹¤×÷ºÅÈ«²¿µ¼Á÷µ½Ö÷ºÅ¡£Ë½ĞÅ»°ÊõÍ³Ò»Îª"Ë½ĞÅ·¢¡¾Ì×²Í¡¿»ñÈ¡±¨¼Û"¡£</p>
+        <p><strong>1. å‘å¸ƒæ—¶é—´ä¼˜åŒ–ï¼š</strong>å»ºè®®å›ºå®šå‘å¸ƒæ—¶é—´ï¼šæ—©ä¸Š7:30-8:30ï¼ˆæ—©å®‰ï¼‰ã€ä¸­åˆ12:00-12:30ï¼ˆåˆä¼‘ï¼‰ã€æ™šä¸Š20:00-22:00ï¼ˆç¡å‰é«˜å³°ï¼‰ã€‚ç‰¹åˆ«æ˜¯ä¸»å·æˆå“å·ï¼Œæ™šä¸Š8ç‚¹å‘å¸ƒå®¢ç‰‡è½¬åŒ–ç‡æœ€é«˜ã€‚</p>
+        <p style="margin-top:10px"><strong>2. æ ‡é¢˜ä¼˜åŒ–æ¨¡æ¿ï¼š</strong>å‰3ç§’å¿…é¡»æœ‰é’©å­ã€‚æ¨èå¼€å¤´ï¼šâ‘ "ä¸‡å·å¤‡å©šå§å¦¹çœ‹è¿‡æ¥ï¼"â‘¡"åœ¨ä¸‡å·æ‹10å¹´å©šçº±ç…§ï¼Œå‘ç°â€¦"â‘¢"åƒä¸‡ä¸è¦è¿™æ ·æ‹å©šçº±ï¼"â‘£"æ–°äººç¬¬ä¸€è§†è§’vlogï½œä»ç´§å¼ åˆ°â€¦"</p>
+        <p style="margin-top:10px"><strong>3. è¯é¢˜æ ‡ç­¾ç»„åˆï¼š</strong>æ¯æ¡è§†é¢‘å¸¦5-8ä¸ªæ ‡ç­¾ã€‚ä¾‹ï¼š#ä¸‡å·å©šçº±ç…§ #ä¸‡å·å©šçº±æ‘„å½± #ä¸‡å·å¤‡å©š #å©šçº±ç…§èŠ±çµ® #é‡åº†å©šçº±ç…§ #ä¸‡å·æ¢åº— #å¤‡å©šæ”»ç•¥ #å®¢ç‰‡åˆ†äº«</p>
+        <p style="margin-top:10px"><strong>4. å››è´¦å·è”åŠ¨ï¼š</strong>ç”Ÿæ´»å·ï¼ˆèèèå‘¨å‘¨ï¼‰â†’ ä¸»å·ï¼ˆå¤ç›®æ‘„å½±å·¥ä½œå®¤ï¼‰â†’ èŠ±çµ®å·ï¼ˆä¸‡å·å¤ç›®æ‘„å½±èŠ±çµ®å·ï¼‰â†’ Vlogå·ï¼ˆæœˆäº®é‚®é€’å‘˜ï¼‰ã€‚æ¯ä¸ªè§†é¢‘ç»“å°¾æˆ–è¯„è®ºåŒºç½®é¡¶äº’ç›¸@ï¼Œå½¢æˆé—­ç¯ã€‚</p>
+        <p style="margin-top:10px"><strong>5. å˜ç°é“¾è·¯ï¼š</strong>ä¸ªäººå·æŒ‚æ©±çª—åšå’–å•¡ç­‰ç”Ÿæ´»æ–¹å¼å¸¦è´§ï¼›å·¥ä½œå·ä¸»å·æŒ‚å›¢è´­/é—¨åº—/ç§ä¿¡å¼•æµï¼›å…¶ä»–å·¥ä½œå·å…¨éƒ¨å¯¼æµåˆ°ä¸»å·ã€‚ç§ä¿¡è¯æœ¯ç»Ÿä¸€ä¸º"ç§ä¿¡å‘ã€å¥—é¤ã€‘è·å–æŠ¥ä»·"ã€‚</p>
       </div>
     </div>
   `;
 }
 
-/* ---------- äÖÈ¾´ı°ì ---------- */
+/* ---------- æ¸²æŸ“å¾…åŠ ---------- */
 function renderTodo() {
   const groups = {};
   WORKBENCH_DATA.todos.forEach(t => {
     if (!groups[t.category]) groups[t.category] = [];
     groups[t.category].push(t);
   });
-  const groupIcons = { '¹¤×÷':'?', 'ÎÄ°¸':'??', '¶¶Òô':'?', '»Ø·Ã':'?', 'ÔË¶¯':'??¡â?', 'Éú»î':'?' };
+  const groupIcons = { 'å·¥ä½œ':'?', 'æ–‡æ¡ˆ':'??', 'æŠ–éŸ³':'?', 'å›è®¿':'?', 'è¿åŠ¨':'??â™€?', 'ç”Ÿæ´»':'?' };
   return `
     <div class="card">
       <div class="card-header">
-        <div class="card-title"><span class="emoji">?</span>½ñÈÕ´ı°ìÊÂÏî</div>
+        <div class="card-title"><span class="emoji">?</span>ä»Šæ—¥å¾…åŠäº‹é¡¹</div>
         <div class="card-actions">
-          <button class="btn btn-sm" onclick="showToast('³¤°´ÈÎÎñ¿É±à¼­')">? ĞÂÔö</button>
+          <button class="btn btn-sm" onclick="showToast('é•¿æŒ‰ä»»åŠ¡å¯ç¼–è¾‘')">? æ–°å¢</button>
         </div>
       </div>
       ${Object.keys(groups).map(cat => `
@@ -250,7 +250,7 @@ function renderTodo() {
               <div class="todo-item ${t.done ? 'done' : ''}" onclick="toggleTodo(${t.id})">
                 <div class="todo-checkbox ${t.done ? 'checked' : ''}"></div>
                 <div class="todo-text">${t.text}</div>
-                <div class="todo-priority ${t.priority}">${t.priority === 'high' ? '½ô¼±' : t.priority === 'mid' ? '³£¹æ' : '²»¼±'}</div>
+                <div class="todo-priority ${t.priority}">${t.priority === 'high' ? 'ç´§æ€¥' : t.priority === 'mid' ? 'å¸¸è§„' : 'ä¸æ€¥'}</div>
                 <div class="todo-time">${t.time}</div>
               </div>
             `).join('')}
@@ -261,14 +261,14 @@ function renderTodo() {
   `;
 }
 
-/* ---------- äÖÈ¾²ËÆ× ---------- */
+/* ---------- æ¸²æŸ“èœè°± ---------- */
 function renderRecipe() {
   return `
     <div class="card">
       <div class="card-header">
-        <div class="card-title"><span class="emoji">?</span>½ñÈÕ10µÀ¼Ò³£²Ë</div>
+        <div class="card-title"><span class="emoji">?</span>ä»Šæ—¥10é“å®¶å¸¸èœ</div>
         <div class="card-actions">
-          <button class="btn btn-sm" onclick="showToast('µã»÷²ËÆ·¿¨Æ¬¿É²é¿´ÏêÏ¸×ö·¨')">? Ê¹ÓÃÌáÊ¾</button>
+          <button class="btn btn-sm" onclick="showToast('ç‚¹å‡»èœå“å¡ç‰‡å¯æŸ¥çœ‹è¯¦ç»†åšæ³•')">? ä½¿ç”¨æç¤º</button>
         </div>
       </div>
       <div class="recipe-grid">
@@ -283,9 +283,9 @@ function renderRecipe() {
               </div>
               <div class="recipe-time">?? ${r.time}</div>
               <div class="recipe-detail">
-                <strong>Ê³²Ä£º</strong>${r.ingredients}<br><br>
-                <strong>×ö·¨£º</strong><br>${r.steps}<br><br>
-                <strong>Ğ¡ÌùÊ¿£º</strong>${r.tip}
+                <strong>é£Ÿæï¼š</strong>${r.ingredients}<br><br>
+                <strong>åšæ³•ï¼š</strong><br>${r.steps}<br><br>
+                <strong>å°è´´å£«ï¼š</strong>${r.tip}
               </div>
               <div class="recipe-toggle"></div>
             </div>
@@ -301,96 +301,96 @@ function getRecipeColor(i) {
   return colors[i % colors.length];
 }
 
-/* ---------- äÖÈ¾ÅÜ²½ ---------- */
+/* ---------- æ¸²æŸ“è·‘æ­¥ ---------- */
 function renderRunning() {
   const r = WORKBENCH_DATA.run;
   const progress = Math.min(100, (r.today / r.target) * 100);
   const weekTotal = r.week.reduce((s, v) => s + v, 0);
-  const weekDays = ['ÖÜÒ»','ÖÜ¶ş','ÖÜÈı','ÖÜËÄ','ÖÜÎå','ÖÜÁù','ÖÜÈÕ'];
+  const weekDays = ['å‘¨ä¸€','å‘¨äºŒ','å‘¨ä¸‰','å‘¨å››','å‘¨äº”','å‘¨å…­','å‘¨æ—¥'];
   return `
     <div class="run-card">
-      <div class="run-icon">??¡â?</div>
+      <div class="run-icon">??â™€?</div>
       <div class="run-info">
-        <h3>½ñÈÕÅÜ²½´ò¿¨</h3>
-        <p>Ä¿±ê£ºÅÜ²½»ú ${r.target} ·ÖÖÓ ¡¤ Á¬Ğø´ò¿¨ ${r.streak} Ìì</p>
+        <h3>ä»Šæ—¥è·‘æ­¥æ‰“å¡</h3>
+        <p>ç›®æ ‡ï¼šè·‘æ­¥æœº ${r.target} åˆ†é’Ÿ Â· è¿ç»­æ‰“å¡ ${r.streak} å¤©</p>
         <div class="run-progress-bar">
           <div class="run-progress-fill" style="width:${progress}%"></div>
         </div>
         <div class="run-stats">
-          <div class="run-stat"><div class="val">${r.today}</div><div class="lbl">½ñÈÕ(·ÖÖÓ)</div></div>
-          <div class="run-stat"><div class="val">${r.streak}</div><div class="lbl">Á¬ĞøÌìÊı</div></div>
-          <div class="run-stat"><div class="val">${weekTotal}</div><div class="lbl">±¾ÖÜÀÛ¼Æ</div></div>
-          <div class="run-stat"><div class="val">${r.total}</div><div class="lbl">±¾ÔÂÀÛ¼Æ</div></div>
+          <div class="run-stat"><div class="val">${r.today}</div><div class="lbl">ä»Šæ—¥(åˆ†é’Ÿ)</div></div>
+          <div class="run-stat"><div class="val">${r.streak}</div><div class="lbl">è¿ç»­å¤©æ•°</div></div>
+          <div class="run-stat"><div class="val">${weekTotal}</div><div class="lbl">æœ¬å‘¨ç´¯è®¡</div></div>
+          <div class="run-stat"><div class="val">${r.total}</div><div class="lbl">æœ¬æœˆç´¯è®¡</div></div>
         </div>
       </div>
       <button class="btn btn-primary" style="background:#fff;color:#764ba2;border:none;padding:12px 24px;font-size:14px;font-weight:600" onclick="completeRun()">
-        ${r.today >= r.target ? '? ½ñÈÕÒÑÍê³É' : '??¡â? Íê³É´ò¿¨'}
+        ${r.today >= r.target ? '? ä»Šæ—¥å·²å®Œæˆ' : '??â™€? å®Œæˆæ‰“å¡'}
       </button>
     </div>
     <div class="card">
       <div class="card-header">
-        <div class="card-title"><span class="emoji">?</span>±¾ÖÜÅÜ²½¼ÇÂ¼</div>
+        <div class="card-title"><span class="emoji">?</span>æœ¬å‘¨è·‘æ­¥è®°å½•</div>
       </div>
       <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:8px;text-align:center">
         ${r.week.map((v, i) => `
           <div style="padding:12px 4px;border-radius:8px;background:${v > 0 ? '#d4edda' : '#f8f9fa'}">
             <div style="font-size:11px;color:var(--text-light)">${weekDays[i]}</div>
-            <div style="font-size:16px;font-weight:700;margin:4px 0">${v > 0 ? v + "'" : '¡ª'}</div>
-            <div style="font-size:10px;color:${v >= r.target ? '#28a745' : '#dc3545'}">${v >= r.target ? '?' : v > 0 ? '°ë' : 'Ğİ'}</div>
+            <div style="font-size:16px;font-weight:700;margin:4px 0">${v > 0 ? v + "'" : 'â€”'}</div>
+            <div style="font-size:10px;color:${v >= r.target ? '#28a745' : '#dc3545'}">${v >= r.target ? '?' : v > 0 ? 'åŠ' : 'ä¼‘'}</div>
           </div>
         `).join('')}
       </div>
     </div>
     <div class="card">
       <div class="card-header">
-        <div class="card-title"><span class="emoji">?</span>30·ÖÖÓÅÜ²½»ú½¨Òé·½°¸</div>
+        <div class="card-title"><span class="emoji">?</span>30åˆ†é’Ÿè·‘æ­¥æœºå»ºè®®æ–¹æ¡ˆ</div>
       </div>
       <div style="font-size:13px;line-height:2;color:var(--text-light)">
-        <p><strong>0-5·ÖÖÓ£¨ÈÈÉí£©£º</strong>ËÙ¶È4km/h£¬ÆÂ¶È0£¬Âı×ßÈÈÉí</p>
-        <p><strong>5-10·ÖÖÓ£¨¹ı¶É£©£º</strong>ËÙ¶È5.5km/h£¬ÆÂ¶È2£¬¿ì×ß¹ı¶Éµ½ÂıÅÜ</p>
-        <p><strong>10-25·ÖÖÓ£¨È¼Ö¬£©£º</strong>ËÙ¶È7-8km/h£¬ÆÂ¶È3-5£¬ÔÈËÙÅÜ£¨ĞÄÂÊ130-150£©</p>
-        <p><strong>25-28·ÖÖÓ£¨³å´Ì£©£º</strong>ËÙ¶È8-9km/h£¬ÆÂ¶È2£¬¼ÓËÙÅÜ</p>
-        <p><strong>28-30·ÖÖÓ£¨·ÅËÉ£©£º</strong>ËÙ¶È4km/h£¬ÆÂ¶È0£¬Âı×ß·ÅËÉ</p>
-        <p style="margin-top:10px;color:var(--primary-dark)">? ¼á³Ö¾ÍÊÇÊ¤Àû£¡Á¬Ğø´ò¿¨${r.streak}ÌìÁË£¬½ñÌìÒ²Òª¼ÓÓÍÑ¼ ?</p>
+        <p><strong>0-5åˆ†é’Ÿï¼ˆçƒ­èº«ï¼‰ï¼š</strong>é€Ÿåº¦4km/hï¼Œå¡åº¦0ï¼Œæ…¢èµ°çƒ­èº«</p>
+        <p><strong>5-10åˆ†é’Ÿï¼ˆè¿‡æ¸¡ï¼‰ï¼š</strong>é€Ÿåº¦5.5km/hï¼Œå¡åº¦2ï¼Œå¿«èµ°è¿‡æ¸¡åˆ°æ…¢è·‘</p>
+        <p><strong>10-25åˆ†é’Ÿï¼ˆç‡ƒè„‚ï¼‰ï¼š</strong>é€Ÿåº¦7-8km/hï¼Œå¡åº¦3-5ï¼ŒåŒ€é€Ÿè·‘ï¼ˆå¿ƒç‡130-150ï¼‰</p>
+        <p><strong>25-28åˆ†é’Ÿï¼ˆå†²åˆºï¼‰ï¼š</strong>é€Ÿåº¦8-9km/hï¼Œå¡åº¦2ï¼ŒåŠ é€Ÿè·‘</p>
+        <p><strong>28-30åˆ†é’Ÿï¼ˆæ”¾æ¾ï¼‰ï¼š</strong>é€Ÿåº¦4km/hï¼Œå¡åº¦0ï¼Œæ…¢èµ°æ”¾æ¾</p>
+        <p style="margin-top:10px;color:var(--primary-dark)">? åšæŒå°±æ˜¯èƒœåˆ©ï¼è¿ç»­æ‰“å¡${r.streak}å¤©äº†ï¼Œä»Šå¤©ä¹Ÿè¦åŠ æ²¹é¸­ ?</p>
       </div>
     </div>
   `;
 }
 
-/* ---------- äÖÈ¾±¸ÍüÂ¼ ---------- */
+/* ---------- æ¸²æŸ“å¤‡å¿˜å½• ---------- */
 function renderNotes() {
   const notes = getNotes();
   return `
     <div class="card">
       <div class="card-header">
-        <div class="card-title"><span class="emoji">?</span>±¸ÍüÂ¼</div>
+        <div class="card-title"><span class="emoji">?</span>å¤‡å¿˜å½•</div>
         <div class="card-actions">
-          <span style="font-size:12px;color:var(--text-light)">×Ô¶¯±£´æ ¡¤ ¹²${notes.length}Ìõ</span>
+          <span style="font-size:12px;color:var(--text-light)">è‡ªåŠ¨ä¿å­˜ Â· å…±${notes.length}æ¡</span>
         </div>
       </div>
       <div style="margin-bottom:16px">
-        <textarea id="note-input" placeholder="Ğ´µãÊ²Ã´...£¨¿ÍÈË±¸×¢¡¢Áé¸Ğ¡¢´ı°ìÌáĞÑ¡¢Í»È»Ïëµ½µÄÊÂ£©" style="width:100%;min-height:80px;padding:12px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;resize:vertical;outline:none"></textarea>
+        <textarea id="note-input" placeholder="å†™ç‚¹ä»€ä¹ˆ...ï¼ˆå®¢äººå¤‡æ³¨ã€çµæ„Ÿã€å¾…åŠæé†’ã€çªç„¶æƒ³åˆ°çš„äº‹ï¼‰" style="width:100%;min-height:80px;padding:12px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;resize:vertical;outline:none"></textarea>
         <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
-          <input id="note-tag" placeholder="±êÇ©£¨Èç£º¿ÍÈË/Áé¸Ğ/ÌáĞÑ£©" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;width:140px;outline:none">
-          <button class="btn btn-primary" style="padding:8px 20px" onclick="addNote()">? Ìí¼Ó</button>
+          <input id="note-tag" placeholder="æ ‡ç­¾ï¼ˆå¦‚ï¼šå®¢äºº/çµæ„Ÿ/æé†’ï¼‰" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;width:140px;outline:none">
+          <button class="btn btn-primary" style="padding:8px 20px" onclick="addNote()">? æ·»åŠ </button>
         </div>
       </div>
       <div id="notes-list">
         ${notes.length === 0 ? `
           <div style="text-align:center;padding:40px 0;color:var(--text-light)">
             <div style="font-size:40px;margin-bottom:10px">?</div>
-            <div>»¹Ã»ÓĞ±¸Íü£¬Ğ´µÚÒ»Ìõ°É¡«</div>
+            <div>è¿˜æ²¡æœ‰å¤‡å¿˜ï¼Œå†™ç¬¬ä¸€æ¡å§ï½</div>
           </div>
         ` : notes.map((n, i) => `
           <div class="note-item" style="border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px;background:#fff;position:relative">
             <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
-              <span style="font-size:11px;padding:2px 8px;border-radius:8px;background:var(--primary-light);color:var(--primary-dark);font-weight:600">${n.tag || '±¸Íü'}</span>
+              <span style="font-size:11px;padding:2px 8px;border-radius:8px;background:var(--primary-light);color:var(--primary-dark);font-weight:600">${n.tag || 'å¤‡å¿˜'}</span>
               <span style="font-size:11px;color:var(--text-light)">${n.time}</span>
             </div>
             <div style="font-size:14px;line-height:1.7;white-space:pre-wrap;color:var(--text)">${escapeHtml(n.content)}</div>
             <div style="margin-top:8px;text-align:right">
-              <button class="btn btn-sm" onclick="copyNote(${i})">? ¸´ÖÆ</button>
-              <button class="btn btn-sm" style="color:var(--danger);border-color:#f8d7da" onclick="deleteNote(${i})">?? É¾³ı</button>
+              <button class="btn btn-sm" onclick="copyNote(${i})">? å¤åˆ¶</button>
+              <button class="btn btn-sm" style="color:var(--danger);border-color:#f8d7da" onclick="deleteNote(${i})">?? åˆ é™¤</button>
             </div>
           </div>
         `).join('')}
@@ -407,36 +407,36 @@ function addNote() {
   const input = document.getElementById('note-input');
   const tagInput = document.getElementById('note-tag');
   const content = input.value.trim();
-  if (!content) { showToast('?? ÄÚÈİ²»ÄÜÎª¿Õ'); return; }
+  if (!content) { showToast('?? å†…å®¹ä¸èƒ½ä¸ºç©º'); return; }
   const notes = getNotes();
   const now = new Date();
-  notes.unshift({ content, tag: tagInput.value.trim() || '±¸Íü', time: `${now.getMonth()+1}/${now.getDate()} ${now.toTimeString().slice(0,5)}` });
+  notes.unshift({ content, tag: tagInput.value.trim() || 'å¤‡å¿˜', time: `${now.getMonth()+1}/${now.getDate()} ${now.toTimeString().slice(0,5)}` });
   saveNotes(notes);
-  showToast('? ±¸ÍüÒÑ±£´æ');
+  showToast('? å¤‡å¿˜å·²ä¿å­˜');
   render();
 }
 function deleteNote(index) {
   const notes = getNotes();
   notes.splice(index, 1);
   saveNotes(notes);
-  showToast('?? ÒÑÉ¾³ı');
+  showToast('?? å·²åˆ é™¤');
   render();
 }
 function copyNote(index) {
   const notes = getNotes();
   const content = notes[index].content;
-  navigator.clipboard.writeText(content).then(() => showToast('? ÒÑ¸´ÖÆ')).catch(() => {
+  navigator.clipboard.writeText(content).then(() => showToast('? å·²å¤åˆ¶')).catch(() => {
     const ta = document.createElement('textarea');
     ta.value = content;
     document.body.appendChild(ta); ta.select();
     document.execCommand('copy');
     document.body.removeChild(ta);
-    showToast('? ÒÑ¸´ÖÆ');
+    showToast('? å·²å¤åˆ¶');
   });
 }
 function escapeHtml(str) { return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-/* ---------- äÖÈ¾Ã¿ÈÕ¼ÇÕË ---------- */
+/* ---------- æ¸²æŸ“æ¯æ—¥è®°è´¦ ---------- */
 const DAILY_BUDGET = 100;
 function getBudgetData() { try { return JSON.parse(localStorage.getItem('zhouping_budget') || '{}'); } catch(e) { return {}; } }
 function saveBudgetData(data) { localStorage.setItem('zhouping_budget', JSON.stringify(data)); }
@@ -479,12 +479,12 @@ function renderBudget() {
     <div class="budget-today-card ${isOver ? 'over' : 'ok'}">
       <div class="budget-today-top">
         <div>
-          <div class="budget-today-label">? ${today.replace(/-/g,'/')} ½ñÈÕÔ¤Ëã</div>
+          <div class="budget-today-label">? ${today.replace(/-/g,'/')} ä»Šæ—¥é¢„ç®—</div>
           <div class="budget-today-amount">?${todayBudget.toFixed(1)}</div>
-          ${hasYesterday ? `<div style="font-size:11px;opacity:0.85;margin-top:4px">${yesterdayRemain >= 0 ? `? º¬×òÈÕ½áÓà ?${yesterdayRemain.toFixed(1)}` : `?? º¬×òÈÕ³¬Ö§ ?${Math.abs(yesterdayRemain).toFixed(1)}`}</div>` : ''}
+          ${hasYesterday ? `<div style="font-size:11px;opacity:0.85;margin-top:4px">${yesterdayRemain >= 0 ? `? å«æ˜¨æ—¥ç»“ä½™ ?${yesterdayRemain.toFixed(1)}` : `?? å«æ˜¨æ—¥è¶…æ”¯ ?${Math.abs(yesterdayRemain).toFixed(1)}`}</div>` : ''}
         </div>
         <div style="text-align:right">
-          <div class="budget-today-label">${isOver ? '?? ÒÑ³¬Ö§' : '? »¹ÄÜ»¨'}</div>
+          <div class="budget-today-label">${isOver ? '?? å·²è¶…æ”¯' : '? è¿˜èƒ½èŠ±'}</div>
           <div class="budget-today-remain ${isOver ? 'text-over' : 'text-ok'}">${isOver ? '-' : ''}?${Math.abs(todayRemain).toFixed(1)}</div>
         </div>
       </div>
@@ -492,43 +492,43 @@ function renderBudget() {
         <div class="budget-progress-fill ${isOver ? 'over' : 'ok'}" style="width:${Math.min(100, (todayTotal/todayBudget)*100)}%"></div>
       </div>
       <div class="budget-today-stats">
-        <div class="budget-stat"><div class="val">?${todayTotal.toFixed(1)}</div><div class="lbl">½ñÈÕÒÑ»¨</div></div>
-        <div class="budget-stat"><div class="val">${todayRecords.length}</div><div class="lbl">±ÊÊı</div></div>
-        <div class="budget-stat"><div class="val">?${weekTotal.toFixed(1)}</div><div class="lbl">±¾ÖÜÀÛ¼Æ</div></div>
-        <div class="budget-stat"><div class="val">?${monthTotal.toFixed(1)}</div><div class="lbl">±¾ÔÂÀÛ¼Æ</div></div>
+        <div class="budget-stat"><div class="val">?${todayTotal.toFixed(1)}</div><div class="lbl">ä»Šæ—¥å·²èŠ±</div></div>
+        <div class="budget-stat"><div class="val">${todayRecords.length}</div><div class="lbl">ç¬”æ•°</div></div>
+        <div class="budget-stat"><div class="val">?${weekTotal.toFixed(1)}</div><div class="lbl">æœ¬å‘¨ç´¯è®¡</div></div>
+        <div class="budget-stat"><div class="val">?${monthTotal.toFixed(1)}</div><div class="lbl">æœ¬æœˆç´¯è®¡</div></div>
       </div>
     </div>
 
     <div class="card">
       <div class="card-header">
-        <div class="card-title"><span class="emoji">??</span>¼ÇÒ»±Ê</div>
+        <div class="card-title"><span class="emoji">??</span>è®°ä¸€ç¬”</div>
       </div>
       <div class="budget-input-row">
         <select id="budget-category" class="budget-select">
-          <option value="²ÍÒû">? ²ÍÒû</option>
-          <option value="½»Í¨">? ½»Í¨</option>
-          <option value="Âò²Ë">? Âò²Ë</option>
-          <option value="¹ºÎï">?? ¹ºÎï</option>
-          <option value="¿§·È">? ¿§·È</option>
-          <option value="ÁãÊ³">? ÁãÊ³</option>
-          <option value="ÈÕÓÃ">? ÈÕÓÃ</option>
-          <option value="ÆäËû">? ÆäËû</option>
+          <option value="é¤é¥®">? é¤é¥®</option>
+          <option value="äº¤é€š">? äº¤é€š</option>
+          <option value="ä¹°èœ">? ä¹°èœ</option>
+          <option value="è´­ç‰©">?? è´­ç‰©</option>
+          <option value="å’–å•¡">? å’–å•¡</option>
+          <option value="é›¶é£Ÿ">? é›¶é£Ÿ</option>
+          <option value="æ—¥ç”¨">? æ—¥ç”¨</option>
+          <option value="å…¶ä»–">? å…¶ä»–</option>
         </select>
-        <input id="budget-amount" type="number" step="0.1" placeholder="½ğ¶î" class="budget-amount-input">
-        <input id="budget-note" placeholder="±¸×¢£¨Ñ¡Ìî£©" class="budget-note-input">
-        <button class="btn btn-primary budget-add-btn" onclick="addBudgetRecord()">? ¼ÇÕË</button>
+        <input id="budget-amount" type="number" step="0.1" placeholder="é‡‘é¢" class="budget-amount-input">
+        <input id="budget-note" placeholder="å¤‡æ³¨ï¼ˆé€‰å¡«ï¼‰" class="budget-note-input">
+        <button class="btn btn-primary budget-add-btn" onclick="addBudgetRecord()">? è®°è´¦</button>
       </div>
     </div>
 
     <div class="card">
       <div class="card-header">
-        <div class="card-title"><span class="emoji">?</span>½ñÈÕÃ÷Ï¸</div>
-        <div class="card-actions"><span style="font-size:12px;color:var(--text-light)">¹²${todayRecords.length}±Ê ¡¤ ?${todayTotal.toFixed(1)}</span></div>
+        <div class="card-title"><span class="emoji">?</span>ä»Šæ—¥æ˜ç»†</div>
+        <div class="card-actions"><span style="font-size:12px;color:var(--text-light)">å…±${todayRecords.length}ç¬” Â· ?${todayTotal.toFixed(1)}</span></div>
       </div>
       ${todayRecords.length === 0 ? `
         <div style="text-align:center;padding:30px;color:var(--text-light)">
           <div style="font-size:32px;margin-bottom:8px">?</div>
-          <div style="font-size:13px">½ñÌì»¹Ã»¼ÇÕË£¬¼ÇµÚÒ»±Ê°É¡«</div>
+          <div style="font-size:13px">ä»Šå¤©è¿˜æ²¡è®°è´¦ï¼Œè®°ç¬¬ä¸€ç¬”å§ï½</div>
         </div>
       ` : todayRecords.map((r, i) => `
         <div class="budget-record-item">
@@ -543,25 +543,25 @@ function renderBudget() {
 
     <div class="card">
       <div class="card-header">
-        <div class="card-title"><span class="emoji">?</span>ÀúÊ·¼ÇÂ¼£¨×î½ü7Ìì£©</div>
+        <div class="card-title"><span class="emoji">?</span>å†å²è®°å½•ï¼ˆæœ€è¿‘7å¤©ï¼‰</div>
       </div>
-      ${historyDates.length === 0 ? `<div style="text-align:center;padding:20px;color:var(--text-light);font-size:13px">ÔİÎŞÀúÊ·¼ÇÂ¼</div>` : historyDates.map(d => {
+      ${historyDates.length === 0 ? `<div style="text-align:center;padding:20px;color:var(--text-light);font-size:13px">æš‚æ— å†å²è®°å½•</div>` : historyDates.map(d => {
         const records = data[d] || [];
         const total = records.reduce((s, r) => s + r.amount, 0);
         const remain = DAILY_BUDGET - total;
         const dayOver = total > DAILY_BUDGET;
         const dayDate = new Date(d);
-        const dayNames = ['ÖÜÈÕ','ÖÜÒ»','ÖÜ¶ş','ÖÜÈı','ÖÜËÄ','ÖÜÎå','ÖÜÁù'];
+        const dayNames = ['å‘¨æ—¥','å‘¨ä¸€','å‘¨äºŒ','å‘¨ä¸‰','å‘¨å››','å‘¨äº”','å‘¨å…­'];
         return `
           <div class="budget-history-item">
             <div class="budget-history-date">
               <span style="font-weight:600">${formatDateCN(d)}</span>
               <span style="font-size:11px;color:var(--text-light);margin-left:6px">${dayNames[dayDate.getDay()]}</span>
-              <span style="font-size:11px;color:var(--text-light);margin-left:6px">${records.length}±Ê</span>
+              <span style="font-size:11px;color:var(--text-light);margin-left:6px">${records.length}ç¬”</span>
             </div>
             <div class="budget-history-amount">
               <span style="color:var(--text);font-weight:600">?${total.toFixed(1)}</span>
-              <span class="budget-history-status ${dayOver ? 'over' : 'ok'}">${dayOver ? `³¬Ö§ ?${Math.abs(remain).toFixed(1)}` : `½áÓà ?${remain.toFixed(1)}`}</span>
+              <span class="budget-history-status ${dayOver ? 'over' : 'ok'}">${dayOver ? `è¶…æ”¯ ?${Math.abs(remain).toFixed(1)}` : `ç»“ä½™ ?${remain.toFixed(1)}`}</span>
             </div>
           </div>
         `;
@@ -570,14 +570,14 @@ function renderBudget() {
 
     <div class="card">
       <div class="card-header">
-        <div class="card-title"><span class="emoji">?</span>¼ÇÕËËµÃ÷</div>
+        <div class="card-title"><span class="emoji">?</span>è®°è´¦è¯´æ˜</div>
       </div>
       <div style="font-size:13px;line-height:1.9;color:var(--text-light)">
-        <p>? Ã¿ÈÕÔ¤Ëã£º<strong>?${DAILY_BUDGET}</strong></p>
-        <p>? Ã¿Ìì¼ÇÂ¼Ö§³öºó£¬×Ô¶¯¼ÆËãµ±Ìì×ÜºÍÓëÊ£Óà</p>
-        <p>? ½ñÈÕÔ¤Ëãº¬×òÈÕ½áÓà£¨»ò¿Û³ı×òÈÕ³¬Ö§£©£¬¹ö¶¯¼ÆËã</p>
-        <p>? ³¬³öÔ¤ËãÏÔÊ¾ºìÉ«£¬ÓĞ½áÓàÏÔÊ¾ÂÌÉ«</p>
-        <p>? Êı¾İ´æÔÚÊÖ»ú±¾µØ£¬²»»á¶ªÊ§</p>
+        <p>? æ¯æ—¥é¢„ç®—ï¼š<strong>?${DAILY_BUDGET}</strong></p>
+        <p>? æ¯å¤©è®°å½•æ”¯å‡ºåï¼Œè‡ªåŠ¨è®¡ç®—å½“å¤©æ€»å’Œä¸å‰©ä½™</p>
+        <p>? ä»Šæ—¥é¢„ç®—å«æ˜¨æ—¥ç»“ä½™ï¼ˆæˆ–æ‰£é™¤æ˜¨æ—¥è¶…æ”¯ï¼‰ï¼Œæ»šåŠ¨è®¡ç®—</p>
+        <p>? è¶…å‡ºé¢„ç®—æ˜¾ç¤ºçº¢è‰²ï¼Œæœ‰ç»“ä½™æ˜¾ç¤ºç»¿è‰²</p>
+        <p>? æ•°æ®å­˜åœ¨æ‰‹æœºæœ¬åœ°ï¼Œä¸ä¼šä¸¢å¤±</p>
       </div>
     </div>
   `;
@@ -587,96 +587,96 @@ function addBudgetRecord() {
   const category = document.getElementById('budget-category').value;
   const amount = parseFloat(document.getElementById('budget-amount').value);
   const note = document.getElementById('budget-note').value.trim();
-  if (!amount || amount <= 0) { showToast('?? ÇëÊäÈëÓĞĞ§½ğ¶î'); return; }
+  if (!amount || amount <= 0) { showToast('?? è¯·è¾“å…¥æœ‰æ•ˆé‡‘é¢'); return; }
   const data = getBudgetData();
   const today = getTodayStr();
   if (!data[today]) data[today] = [];
   const now = new Date();
   data[today].push({ category, amount, note, time: `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}` });
   saveBudgetData(data);
-  showToast(`? ÒÑ¼ÇÕË ?${amount.toFixed(1)}`);
+  showToast(`? å·²è®°è´¦ ?${amount.toFixed(1)}`);
   render();
 }
 function deleteBudgetRecord(date, index) {
   const data = getBudgetData();
-  if (data[date]) { data[date].splice(index, 1); if (data[date].length === 0) delete data[date]; saveBudgetData(data); showToast('?? ÒÑÉ¾³ı'); render(); }
+  if (data[date]) { data[date].splice(index, 1); if (data[date].length === 0) delete data[date]; saveBudgetData(data); showToast('?? å·²åˆ é™¤'); render(); }
 }
 
-/* ---------- äÖÈ¾·İ×ÓÇ®ÕË±¾ ---------- */
+/* ---------- æ¸²æŸ“ä»½å­é’±è´¦æœ¬ ---------- */
 function getGiftData() { try { return JSON.parse(localStorage.getItem('zhouping_gifts') || '[]'); } catch(e) { return []; } }
 function saveGiftData(data) { localStorage.setItem('zhouping_gifts', JSON.stringify(data)); }
 
 function renderGift() {
   const gifts = getGiftData();
-  const totalIn = gifts.filter(g => g.type === 'ÊÕ').reduce((s, g) => s + g.amount, 0);
-  const totalOut = gifts.filter(g => g.type === 'ËÍ').reduce((s, g) => s + g.amount, 0);
+  const totalIn = gifts.filter(g => g.type === 'æ”¶').reduce((s, g) => s + g.amount, 0);
+  const totalOut = gifts.filter(g => g.type === 'é€').reduce((s, g) => s + g.amount, 0);
   const balance = totalIn - totalOut;
-  const countIn = gifts.filter(g => g.type === 'ÊÕ').length;
-  const countOut = gifts.filter(g => g.type === 'ËÍ').length;
+  const countIn = gifts.filter(g => g.type === 'æ”¶').length;
+  const countOut = gifts.filter(g => g.type === 'é€').length;
   const sorted = [...gifts].sort((a, b) => (b.date + b.time).localeCompare(a.date + a.time));
 
   return `
     <div class="gift-summary-card ${balance >= 0 ? 'positive' : 'negative'}">
       <div class="gift-summary-top">
         <div>
-          <div style="font-size:12px;opacity:0.9">? ·İ×ÓÇ®×ÜÕË</div>
+          <div style="font-size:12px;opacity:0.9">? ä»½å­é’±æ€»è´¦</div>
           <div style="font-size:32px;font-weight:700;margin-top:4px">${balance >= 0 ? '+' : ''}?${balance.toFixed(0)}</div>
-          <div style="font-size:11px;opacity:0.85;margin-top:2px">${balance >= 0 ? 'ÊÕ´óÓÚËÍ£¬ÃÀ×Ì×Ì' : 'ËÍ¶àÁË£¬ĞÄÌÛ¡­'}</div>
+          <div style="font-size:11px;opacity:0.85;margin-top:2px">${balance >= 0 ? 'æ”¶å¤§äºé€ï¼Œç¾æ»‹æ»‹' : 'é€å¤šäº†ï¼Œå¿ƒç–¼â€¦'}</div>
         </div>
-        <div style="text-align:right"><div style="font-size:11px;opacity:0.85">¹² ${gifts.length} ±Ê</div></div>
+        <div style="text-align:right"><div style="font-size:11px;opacity:0.85">å…± ${gifts.length} ç¬”</div></div>
       </div>
       <div class="gift-stats-row">
-        <div class="gift-stat"><div class="val">?${totalIn.toFixed(0)}</div><div class="lbl">? ÊÕµ½ (${countIn}±Ê)</div></div>
-        <div class="gift-stat"><div class="val">?${totalOut.toFixed(0)}</div><div class="lbl">? ËÍ³ö (${countOut}±Ê)</div></div>
+        <div class="gift-stat"><div class="val">?${totalIn.toFixed(0)}</div><div class="lbl">? æ”¶åˆ° (${countIn}ç¬”)</div></div>
+        <div class="gift-stat"><div class="val">?${totalOut.toFixed(0)}</div><div class="lbl">? é€å‡º (${countOut}ç¬”)</div></div>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-header"><div class="card-title"><span class="emoji">??</span>¼ÇÒ»±Ê·İ×ÓÇ®</div></div>
+      <div class="card-header"><div class="card-title"><span class="emoji">??</span>è®°ä¸€ç¬”ä»½å­é’±</div></div>
       <div class="gift-input-area">
         <div class="gift-input-row">
-          <select id="gift-type" class="gift-type-select"><option value="ÊÕ">? ÊÕµ½</option><option value="ËÍ">? ËÍ³ö</option></select>
-          <input id="gift-amount" type="number" step="100" placeholder="½ğ¶î£¨Ôª£©" class="gift-amount-input">
-          <input id="gift-name" placeholder="¶Ô·½ĞÕÃû" class="gift-name-input">
+          <select id="gift-type" class="gift-type-select"><option value="æ”¶">? æ”¶åˆ°</option><option value="é€">? é€å‡º</option></select>
+          <input id="gift-amount" type="number" step="100" placeholder="é‡‘é¢ï¼ˆå…ƒï¼‰" class="gift-amount-input">
+          <input id="gift-name" placeholder="å¯¹æ–¹å§“å" class="gift-name-input">
         </div>
         <div class="gift-input-row">
-          <input id="gift-event" placeholder="Ê²Ã´ÊÂ£¨½á»é/ÂúÔÂ/ÇÇÇ¨¡­£©" class="gift-event-input">
+          <input id="gift-event" placeholder="ä»€ä¹ˆäº‹ï¼ˆç»“å©š/æ»¡æœˆ/ä¹”è¿â€¦ï¼‰" class="gift-event-input">
           <input id="gift-date" type="date" class="gift-date-input">
-          <button class="btn btn-primary gift-add-btn" onclick="addGiftRecord()">? ¼ÇÂ¼</button>
+          <button class="btn btn-primary gift-add-btn" onclick="addGiftRecord()">? è®°å½•</button>
         </div>
       </div>
     </div>
 
     <div class="card">
       <div class="card-header">
-        <div class="card-title"><span class="emoji">?</span>·İ×ÓÇ®Ã÷Ï¸</div>
-        <div class="card-actions"><span style="font-size:12px;color:var(--text-light)">¹²${gifts.length}±Ê</span></div>
+        <div class="card-title"><span class="emoji">?</span>ä»½å­é’±æ˜ç»†</div>
+        <div class="card-actions"><span style="font-size:12px;color:var(--text-light)">å…±${gifts.length}ç¬”</span></div>
       </div>
       ${sorted.length === 0 ? `
         <div style="text-align:center;padding:30px;color:var(--text-light)">
           <div style="font-size:32px;margin-bottom:8px">?</div>
-          <div style="font-size:13px">»¹Ã»ÓĞ¼ÇÂ¼£¬¼ÇµÚÒ»±Ê°É¡«</div>
+          <div style="font-size:13px">è¿˜æ²¡æœ‰è®°å½•ï¼Œè®°ç¬¬ä¸€ç¬”å§ï½</div>
         </div>
       ` : sorted.map(g => `
         <div class="gift-record-item">
-          <div class="gift-record-type ${g.type === 'ÊÕ' ? 'in' : 'out'}">${g.type === 'ÊÕ' ? '?' : '?'} ${g.type}</div>
+          <div class="gift-record-type ${g.type === 'æ”¶' ? 'in' : 'out'}">${g.type === 'æ”¶' ? '?' : '?'} ${g.type}</div>
           <div class="gift-record-info">
-            <div class="gift-record-name">${escapeHtml(g.name)} <span style="font-size:11px;color:var(--text-light)">¡¤ ${escapeHtml(g.event || 'Î´ÌîĞ´')}</span></div>
-            <div class="gift-record-date">${g.date || 'Î´ÌîÈÕÆÚ'}</div>
+            <div class="gift-record-name">${escapeHtml(g.name)} <span style="font-size:11px;color:var(--text-light)">Â· ${escapeHtml(g.event || 'æœªå¡«å†™')}</span></div>
+            <div class="gift-record-date">${g.date || 'æœªå¡«æ—¥æœŸ'}</div>
           </div>
-          <div class="gift-record-amount ${g.type === 'ÊÕ' ? 'in' : 'out'}">${g.type === 'ÊÕ' ? '+' : '-'}?${g.amount.toFixed(0)}</div>
+          <div class="gift-record-amount ${g.type === 'æ”¶' ? 'in' : 'out'}">${g.type === 'æ”¶' ? '+' : '-'}?${g.amount.toFixed(0)}</div>
           <button class="gift-record-del" onclick="deleteGiftRecord('${g.id}')">?</button>
         </div>
       `).join('')}
     </div>
 
     <div class="card">
-      <div class="card-header"><div class="card-title"><span class="emoji">?</span>Ê¹ÓÃËµÃ÷</div></div>
+      <div class="card-header"><div class="card-title"><span class="emoji">?</span>ä½¿ç”¨è¯´æ˜</div></div>
       <div style="font-size:13px;line-height:1.9;color:var(--text-light)">
-        <p>? ¼ÇÂ¼Ã¿±Ê·İ×ÓÇ®£ºÊÕµ½/ËÍ³ö¡¢½ğ¶î¡¢¶Ô·½ĞÕÃû¡¢Ê²Ã´ÊÂ</p>
-        <p>? ×Ô¶¯Í³¼Æ×ÜÊÕÈë¡¢×ÜËÍ³ö¡¢½áÓà</p>
-        <p>? ½áÓàÎªÕı=ÊÕ´óÓÚËÍ£¬½áÓàÎª¸º=ËÍ¶àÁË</p>
-        <p>? Êı¾İ´æÔÚÊÖ»ú±¾µØ£¬²»»á¶ªÊ§</p>
+        <p>? è®°å½•æ¯ç¬”ä»½å­é’±ï¼šæ”¶åˆ°/é€å‡ºã€é‡‘é¢ã€å¯¹æ–¹å§“åã€ä»€ä¹ˆäº‹</p>
+        <p>? è‡ªåŠ¨ç»Ÿè®¡æ€»æ”¶å…¥ã€æ€»é€å‡ºã€ç»“ä½™</p>
+        <p>? ç»“ä½™ä¸ºæ­£=æ”¶å¤§äºé€ï¼Œç»“ä½™ä¸ºè´Ÿ=é€å¤šäº†</p>
+        <p>? æ•°æ®å­˜åœ¨æ‰‹æœºæœ¬åœ°ï¼Œä¸ä¼šä¸¢å¤±</p>
       </div>
     </div>
   `;
@@ -688,22 +688,22 @@ function addGiftRecord() {
   const name = document.getElementById('gift-name').value.trim();
   const event = document.getElementById('gift-event').value.trim();
   const date = document.getElementById('gift-date').value;
-  if (!amount || amount <= 0) { showToast('?? ÇëÊäÈë½ğ¶î'); return; }
-  if (!name) { showToast('?? ÇëÊäÈë¶Ô·½ĞÕÃû'); return; }
+  if (!amount || amount <= 0) { showToast('?? è¯·è¾“å…¥é‡‘é¢'); return; }
+  if (!name) { showToast('?? è¯·è¾“å…¥å¯¹æ–¹å§“å'); return; }
   const gifts = getGiftData();
   const now = new Date();
   gifts.push({ id: 'g' + Date.now(), type, amount, name, event, date: date || getTodayStr(), time: `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}` });
   saveGiftData(gifts);
-  showToast(`? ÒÑ¼ÇÂ¼ ${type} ?${amount.toFixed(0)}`);
+  showToast(`? å·²è®°å½• ${type} ?${amount.toFixed(0)}`);
   render();
 }
 function deleteGiftRecord(id) {
   const gifts = getGiftData();
   const index = gifts.findIndex(g => g.id === id);
-  if (index >= 0) { gifts.splice(index, 1); saveGiftData(gifts); showToast('?? ÒÑÉ¾³ı'); render(); }
+  if (index >= 0) { gifts.splice(index, 1); saveGiftData(gifts); showToast('?? å·²åˆ é™¤'); render(); }
 }
 
-/* ---------- ´ı°ì×´Ì¬±¾µØ´æ´¢ ---------- */
+/* ---------- å¾…åŠçŠ¶æ€æœ¬åœ°å­˜å‚¨ ---------- */
 function getTodoDoneState() {
   try {
     const saved = JSON.parse(localStorage.getItem('zhouping_todos') || '{}');
@@ -717,7 +717,7 @@ function restoreTodoState() {
   WORKBENCH_DATA.todos.forEach(t => { t.done = !!doneMap[t.id]; });
 }
 
-/* ---------- ½»»¥Âß¼­ ---------- */
+/* ---------- äº¤äº’é€»è¾‘ ---------- */
 let currentTab = 'overview';
 function switchTab(tabId) { currentTab = tabId; render(); }
 function toggleTodo(id) {
@@ -728,7 +728,7 @@ function toggleTodo(id) {
     WORKBENCH_DATA.todos.forEach(t => { if (t.done) doneMap[t.id] = true; });
     saveTodoDoneState(doneMap);
     render();
-    if (todo.done) showToast('? Íê³ÉÒ»Ïî£¡¼ÌĞø¼ÓÓÍ');
+    if (todo.done) showToast('? å®Œæˆä¸€é¡¹ï¼ç»§ç»­åŠ æ²¹');
   }
 }
 function toggleRecipe(i) { const cards = document.querySelectorAll('.recipe-card'); if (cards[i]) cards[i].classList.toggle('expanded'); }
@@ -737,10 +737,10 @@ function completeRun() {
     WORKBENCH_DATA.run.today = WORKBENCH_DATA.run.target;
     WORKBENCH_DATA.run.streak += 1;
     render();
-    showToast('? ÅÜ²½´ò¿¨Íê³É£¡Õæ°ô');
-  } else { showToast('½ñÈÕÒÑÍê³É´ò¿¨'); }
+    showToast('? è·‘æ­¥æ‰“å¡å®Œæˆï¼çœŸæ£’');
+  } else { showToast('ä»Šæ—¥å·²å®Œæˆæ‰“å¡'); }
 }
-function refreshHot() { showToast('? ÈÈµãÃ¿Ğ¡Ê±¸üĞÂ£¬ÇëÉÔºóË¢ĞÂ'); }
+function refreshHot() { showToast('? çƒ­ç‚¹æ¯å°æ—¶æ›´æ–°ï¼Œè¯·ç¨ååˆ·æ–°'); }
 function showToast(msg) {
   const existing = document.querySelector('.toast');
   if (existing) existing.remove();
@@ -752,7 +752,7 @@ function showToast(msg) {
   setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 300); }, 2500);
 }
 
-/* ---------- Ö÷äÖÈ¾ ---------- */
+/* ---------- ä¸»æ¸²æŸ“ ---------- */
 function render() {
   const content = {
     overview: renderOverview,
@@ -768,13 +768,13 @@ function render() {
   app.innerHTML = renderTopbar() + `<div class="layout">` + renderNav(currentTab) + `<div class="main"><div class="tab-content active">${content[currentTab]()}</div></div></div>`;
 }
 
-/* ---------- Ê±ÖÓ ---------- */
+/* ---------- æ—¶é’Ÿ ---------- */
 function updateClock() {
   const el = document.getElementById('current-time');
   if (el) { const now = new Date(); el.textContent = now.toTimeString().slice(0, 5); }
 }
 
-/* ---------- Æô¶¯ ---------- */
+/* ---------- å¯åŠ¨ ---------- */
 restoreTodoState();
 render();
 setInterval(updateClock, 60000);
