@@ -84,7 +84,7 @@ function renderOverview() {
         </div>
       </div>
       <div class="overview-card">
-        <div class="icon purple">??♀?</div>
+        <div class="icon purple">???</div>
         <div class="info">
           <div class="label">跑步打卡</div>
           <div class="value">${runDone ? '已完成' : '未完成'}</div>
@@ -217,10 +217,10 @@ function renderAccounts() {
       </div>
       <div style="font-size:13px;line-height:1.8;color:var(--text-light)">
         <p><strong>1. 发布时间优化：</strong>建议固定发布时间：早上7:30-8:30（早安）、中午12:00-12:30（午休）、晚上20:00-22:00（睡前高峰）。特别是主号成品号，晚上8点发布客片转化率最高。</p>
-        <p style="margin-top:10px"><strong>2. 标题优化模板：</strong>前3秒必须有钩子。推荐开头：①"万州备婚姐妹看过来！"②"在万州拍10年婚纱照，发现…"③"千万不要这样拍婚纱！"④"新人第一视角vlog｜从紧张到…"</p>
+        <p style="margin-top:10px"><strong>2. 标题优化模板：</strong>前3秒必须有钩子。推荐开头："万州备婚姐妹看过来！""在万州拍10年婚纱照，发现…""千万不要这样拍婚纱！""新人第一视角vlog从紧张到…"</p>
         <p style="margin-top:10px"><strong>3. 话题标签组合：</strong>每条视频带5-8个标签。例：#万州婚纱照 #万州婚纱摄影 #万州备婚 #婚纱照花絮 #重庆婚纱照 #万州探店 #备婚攻略 #客片分享</p>
-        <p style="margin-top:10px"><strong>4. 四账号联动：</strong>生活号（萍萍萍周周）→ 主号（夏目摄影工作室）→ 花絮号（万州夏目摄影花絮号）→ Vlog号（月亮邮递员）。每个视频结尾或评论区置顶互相@，形成闭环。</p>
-        <p style="margin-top:10px"><strong>5. 变现链路：</strong>个人号挂橱窗做咖啡等生活方式带货；工作号主号挂团购/门店/私信引流；其他工作号全部导流到主号。私信话术统一为"私信发【套餐】获取报价"。</p>
+        <p style="margin-top:10px"><strong>4. 四账号联动：</strong>生活号（萍萍萍周周） 主号（夏目摄影工作室） 花絮号（万州夏目摄影花絮号） Vlog号（月亮邮递员）。每个视频结尾或评论区置顶互相@，形成闭环。</p>
+        <p style="margin-top:10px"><strong>5. 变现链路：</strong>个人号挂橱窗做咖啡等生活方式带货；工作号主号挂团购/门店/私信引流；其他工作号全部导流到主号。私信话术统一为"私信发套餐获取报价"。</p>
       </div>
     </div>
   `;
@@ -309,7 +309,7 @@ function renderRunning() {
   const weekDays = ['周一','周二','周三','周四','周五','周六','周日'];
   return `
     <div class="run-card">
-      <div class="run-icon">??♀?</div>
+      <div class="run-icon">???</div>
       <div class="run-info">
         <h3>今日跑步打卡</h3>
         <p>目标：跑步机 ${r.target} 分钟 · 连续打卡 ${r.streak} 天</p>
@@ -324,7 +324,7 @@ function renderRunning() {
         </div>
       </div>
       <button class="btn btn-primary" style="background:#fff;color:#764ba2;border:none;padding:12px 24px;font-size:14px;font-weight:600" onclick="completeRun()">
-        ${r.today >= r.target ? '? 今日已完成' : '??♀? 完成打卡'}
+        ${r.today >= r.target ? '? 今日已完成' : '??? 完成打卡'}
       </button>
     </div>
     <div class="card">
@@ -335,8 +335,8 @@ function renderRunning() {
         ${r.week.map((v, i) => `
           <div style="padding:12px 4px;border-radius:8px;background:${v > 0 ? '#d4edda' : '#f8f9fa'}">
             <div style="font-size:11px;color:var(--text-light)">${weekDays[i]}</div>
-            <div style="font-size:16px;font-weight:700;margin:4px 0">${v > 0 ? v + "'" : '—'}</div>
-            <div style="font-size:10px;color:${v >= r.target ? '#28a745' : '#dc3545'}">${v >= r.target ? '✓' : v > 0 ? '半' : '休'}</div>
+            <div style="font-size:16px;font-weight:700;margin:4px 0">${v > 0 ? v + "'" : '-'}</div>
+            <div style="font-size:10px;color:${v >= r.target ? '#28a745' : '#dc3545'}">${v >= r.target ? '对' : v > 0 ? '半' : '休'}</div>
           </div>
         `).join('')}
       </div>
