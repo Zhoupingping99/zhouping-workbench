@@ -4,15 +4,15 @@ const app = document.getElementById('app');
 
 /* ---------- Tab配置 ---------- */
 const TABS = [
-  { id: 'overview', name: '今日概览', icon: '📊' },
-  { id: 'douyin', name: '抖音热点', icon: '🔥' },
-  { id: 'accounts', name: '抖音号管理', icon: '📱' },
-  { id: 'todo', name: '今日待办', icon: '✅' },
-  { id: 'recipe', name: '今日菜谱', icon: '🍳' },
-  { id: 'running', name: '运动打卡', icon: '🏃‍♀️' },
-  { id: 'notes', name: '备忘录', icon: '📝' },
-  { id: 'budget', name: '每日记账', icon: '💰' },
-  { id: 'gift', name: '份子钱账本', icon: '🧧' },
+  { id: 'overview', name: '概览', icon: '概览' },
+  { id: 'douyin', name: '抖音热点', icon: '热点' },
+  { id: 'accounts', name: '抖音号管理', icon: '管号' },
+  { id: 'todo', name: '今日待办', icon: '待办' },
+  { id: 'recipe', name: '今日菜谱', icon: '菜谱' },
+  { id: 'running', name: '运动打卡', icon: '跑步' },
+  { id: 'notes', name: '备忘录', icon: '备忘' },
+  { id: 'budget', name: '每日记账', icon: '记账' },
+  { id: 'gift', name: '份子钱账本', icon: '份子' },
 ];
 
 /* ---------- 渲染顶部栏 ---------- */
@@ -233,7 +233,7 @@ function renderTodo() {
     if (!groups[t.category]) groups[t.category] = [];
     groups[t.category].push(t);
   });
-  const groupIcons = { '工作':'💼', '文案':'✍️', '抖音':'📱', '回访':'📞', '运动':'🏃‍♀️', '生活':'🏠' };
+  const groupIcons = { '工作':'工作', '文案':'文案', '抖音':'抖音', '回访':'回访', '运动':'运动', '生活':'生活' };
   return `
     <div class="card">
       <div class="card-header">
@@ -244,7 +244,7 @@ function renderTodo() {
       </div>
       ${Object.keys(groups).map(cat => `
         <div style="margin-bottom:16px">
-          <div style="font-size:13px;font-weight:600;color:var(--text-light);margin-bottom:8px">${groupIcons[cat]||'📌'} ${cat}</div>
+          <div style="font-size:13px;font-weight:600;color:var(--text-light);margin-bottom:8px">${groupIcons[cat]||'项'} ${cat}</div>
           <div class="todo-list">
             ${groups[cat].map(t => `
               <div class="todo-item ${t.done ? 'done' : ''}" onclick="toggleTodo(${t.id})">
@@ -659,7 +659,7 @@ function renderGift() {
         </div>
       ` : sorted.map(g => `
         <div class="gift-record-item">
-          <div class="gift-record-type ${g.type === '收' ? 'in' : 'out'}">${g.type === '收' ? '📥' : '📤'} ${g.type}</div>
+          <div class="gift-record-type ${g.type === '收' ? 'in' : 'out'}">${g.type === '收' ? '收' : '送'} ${g.type}</div>
           <div class="gift-record-info">
             <div class="gift-record-name">${escapeHtml(g.name)} <span style="font-size:11px;color:var(--text-light)">· ${escapeHtml(g.event || '未填写')}</span></div>
             <div class="gift-record-date">${g.date || '未填日期'}</div>
