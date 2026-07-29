@@ -24,9 +24,12 @@ body {
   line-height: 1.6;
   font-size: 14px;
 }
-.emoji, .hot-video .video-bg, .recipe-card .recipe-img, .nav-icon, .copy-tag, .overview-card .icon {
+.emoji, .hot-video .video-bg, .recipe-card .recipe-img, .copy-tag, .overview-card .icon {
   font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "EmojiOne Color", "Twemoji Mozilla", sans-serif;
   font-style: normal;
+}
+.nav-icon {
+  display: none;
 }
 
 

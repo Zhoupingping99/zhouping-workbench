@@ -68,15 +68,15 @@ function renderOverview() {
   return `
     <div class="overview-grid">
       <div class="overview-card">
-        <div class="icon pink">?</div>
+        <div class="icon pink">待</div>
         <div class="info">
           <div class="label">今日待办</div>
           <div class="value">${doneCount}/${totalCount}</div>
-          <div class="extra">${doneCount < totalCount ? `还有${totalCount-doneCount}项待完成` : '全部完成 ?'}</div>
+          <div class="extra">${doneCount < totalCount ? `还有${totalCount-doneCount}项待完成` : '全部完成，太棒了'}</div>
         </div>
       </div>
       <div class="overview-card">
-        <div class="icon blue">?</div>
+        <div class="icon blue">热</div>
         <div class="info">
           <div class="label">抖音热点</div>
           <div class="value">${hotCount}</div>
@@ -84,7 +84,7 @@ function renderOverview() {
         </div>
       </div>
       <div class="overview-card">
-        <div class="icon purple">???</div>
+        <div class="icon purple">跑</div>
         <div class="info">
           <div class="label">跑步打卡</div>
           <div class="value">${runDone ? '已完成' : '未完成'}</div>
@@ -92,7 +92,7 @@ function renderOverview() {
         </div>
       </div>
       <div class="overview-card">
-        <div class="icon green">?</div>
+        <div class="icon green">菜</div>
         <div class="info">
           <div class="label">今日菜谱</div>
           <div class="value">${WORKBENCH_DATA.recipes.length}</div>
@@ -103,7 +103,7 @@ function renderOverview() {
 
     <div class="card">
       <div class="card-header">
-        <div class="card-title"><span class="emoji">?</span>今日重点</div>
+        <div class="card-title">今日重点</div>
       </div>
       <div class="todo-list">
         ${todos.filter(t => t.priority === 'high' && !t.done).map(t => `
@@ -124,9 +124,9 @@ function renderDouyin() {
   return `
     <div class="card">
       <div class="card-header">
-        <div class="card-title"><span class="emoji">?</span>抖音婚纱摄影热点 · 可二创视频</div>
+        <div class="card-title">抖音婚纱摄影热点 · 可二创视频</div>
         <div class="card-actions">
-          <button class="btn btn-sm" onclick="refreshHot()">? 刷新热点</button>
+          <button class="btn btn-sm" onclick="refreshHot()">刷新热点</button>
         </div>
       </div>
       <div class="hot-grid">
@@ -136,7 +136,7 @@ function renderDouyin() {
               <div class="video-bg">${h.img}</div>
               <div class="video-gradient"></div>
               <div class="video-top">
-                <span class="rank-badge">? 第${h.rank}位</span>
+                <span class="rank-badge">第${h.rank}位</span>
                 <span class="hot-label">抖音热榜</span>
               </div>
               <div class="video-screenshot">${h.screenshot}</div>
@@ -147,9 +147,9 @@ function renderDouyin() {
                 </div>
                 <div class="video-title">${h.title}</div>
                 <div class="video-stats">
-                  <span>?? ${h.likes}</span>
-                  <span>? ${h.comments}</span>
-                  <span>? ${h.shares}</span>
+                  <span>赞 ${h.likes}</span>
+                  <span>评 ${h.comments}</span>
+                  <span>转 ${h.shares}</span>
                 </div>
               </div>
             </div>
@@ -157,7 +157,7 @@ function renderDouyin() {
               <div class="hot-desc">${h.desc}</div>
               <div class="hot-tags">${h.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
               <div style="margin-top:10px;padding:8px 10px;background:#fff8e1;border-radius:6px;font-size:11px;color:#856404;line-height:1.6">
-                ? <strong>\u4e8c\u521b\u5efa\u8bae\uff1a</strong>${h["\u4e8c\u521b\u5efa\u8bae"]}
+                <strong>二创建议：</strong>${h["\u4e8c\u521b\u5efa\u8bae"]}
               </div>
             </div>
           </div>
@@ -181,7 +181,7 @@ function renderAccounts() {
   return `
     <div class="card">
       <div class="card-header">
-        <div class="card-title"><span class="emoji">?</span>我的抖音号管理</div>
+        <div class="card-title">我的抖音号管理</div>
         <div class="card-actions">
           <span style="font-size:12px;color:var(--text-light)">4个号 · 实时数据</span>
         </div>
@@ -205,15 +205,15 @@ function renderAccounts() {
               <div class="acc-stat"><div class="num">${a.likes}</div><div class="lbl">总点赞</div></div>
               <div class="acc-stat"><div class="num">${a.works}</div><div class="lbl">作品数</div></div>
             </div>
-            <div class="acc-suggest"><strong>? 运营建议：</strong>${a.suggestion}</div>
-            <div class="acc-suggest" style="margin-top:8px;padding-top:8px;border-top:1px dashed var(--border)"><strong>?? 近期问题：</strong>${a.recentIssue}</div>
+            <div class="acc-suggest"><strong>运营建议：</strong>${a.suggestion}</div>
+            <div class="acc-suggest" style="margin-top:8px;padding-top:8px;border-top:1px dashed var(--border)"><strong>近期问题：</strong>${a.recentIssue}</div>
           </div>
         `).join('')}
       </div>
     </div>
     <div class="card">
       <div class="card-header">
-        <div class="card-title"><span class="emoji">?</span>发布优化复盘</div>
+        <div class="card-title">发布优化复盘</div>
       </div>
       <div style="font-size:13px;line-height:1.8;color:var(--text-light)">
         <p><strong>1. 发布时间优化：</strong>建议固定发布时间：早上7:30-8:30（早安）、中午12:00-12:30（午休）、晚上20:00-22:00（睡前高峰）。特别是主号成品号，晚上8点发布客片转化率最高。</p>
@@ -237,9 +237,9 @@ function renderTodo() {
   return `
     <div class="card">
       <div class="card-header">
-        <div class="card-title"><span class="emoji">?</span>今日待办事项</div>
+        <div class="card-title">今日待办事项</div>
         <div class="card-actions">
-          <button class="btn btn-sm" onclick="showToast('长按任务可编辑')">? 新增</button>
+          <button class="btn btn-sm" onclick="showToast('长按任务可编辑')">新增</button>
         </div>
       </div>
       ${Object.keys(groups).map(cat => `
@@ -266,9 +266,9 @@ function renderRecipe() {
   return `
     <div class="card">
       <div class="card-header">
-        <div class="card-title"><span class="emoji">?</span>今日10道家常菜</div>
+        <div class="card-title">今日10道家常菜</div>
         <div class="card-actions">
-          <button class="btn btn-sm" onclick="showToast('点击菜品卡片可查看详细做法')">? 使用提示</button>
+          <button class="btn btn-sm" onclick="showToast('点击菜品卡片可查看详细做法')">使用提示</button>
         </div>
       </div>
       <div class="recipe-grid">
@@ -281,7 +281,7 @@ function renderRecipe() {
                 <span class="tag">${r.difficulty}</span>
                 ${r.tags.map(t => `<span class="tag">${t}</span>`).join('')}
               </div>
-              <div class="recipe-time">?? ${r.time}</div>
+              <div class="recipe-time">用时 ${r.time}</div>
               <div class="recipe-detail">
                 <strong>食材：</strong>${r.ingredients}<br><br>
                 <strong>做法：</strong><br>${r.steps}<br><br>
@@ -309,7 +309,7 @@ function renderRunning() {
   const weekDays = ['周一','周二','周三','周四','周五','周六','周日'];
   return `
     <div class="run-card">
-      <div class="run-icon">???</div>
+      <div class="run-icon">跑</div>
       <div class="run-info">
         <h3>今日跑步打卡</h3>
         <p>目标：跑步机 ${r.target} 分钟 · 连续打卡 ${r.streak} 天</p>
@@ -324,26 +324,26 @@ function renderRunning() {
         </div>
       </div>
       <button class="btn btn-primary" style="background:#fff;color:#764ba2;border:none;padding:12px 24px;font-size:14px;font-weight:600" onclick="completeRun()">
-        ${r.today >= r.target ? '? 今日已完成' : '??? 完成打卡'}
+        ${r.today >= r.target ? '今日已完成' : '完成打卡'}
       </button>
     </div>
     <div class="card">
       <div class="card-header">
-        <div class="card-title"><span class="emoji">?</span>本周跑步记录</div>
+        <div class="card-title">本周跑步记录</div>
       </div>
       <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:8px;text-align:center">
         ${r.week.map((v, i) => `
           <div style="padding:12px 4px;border-radius:8px;background:${v > 0 ? '#d4edda' : '#f8f9fa'}">
             <div style="font-size:11px;color:var(--text-light)">${weekDays[i]}</div>
             <div style="font-size:16px;font-weight:700;margin:4px 0">${v > 0 ? v + "'" : '-'}</div>
-            <div style="font-size:10px;color:${v >= r.target ? '#28a745' : '#dc3545'}">${v >= r.target ? '对' : v > 0 ? '半' : '休'}</div>
+            <div style="font-size:10px;color:${v >= r.target ? '#28a745' : '#dc3545'}">${v >= r.target ? '达标' : v > 0 ? '半程' : '休息'}</div>
           </div>
         `).join('')}
       </div>
     </div>
     <div class="card">
       <div class="card-header">
-        <div class="card-title"><span class="emoji">?</span>30分钟跑步机建议方案</div>
+        <div class="card-title">30分钟跑步机建议方案</div>
       </div>
       <div style="font-size:13px;line-height:2;color:var(--text-light)">
         <p><strong>0-5分钟（热身）：</strong>速度4km/h，坡度0，慢走热身</p>
@@ -351,7 +351,7 @@ function renderRunning() {
         <p><strong>10-25分钟（燃脂）：</strong>速度7-8km/h，坡度3-5，匀速跑（心率130-150）</p>
         <p><strong>25-28分钟（冲刺）：</strong>速度8-9km/h，坡度2，加速跑</p>
         <p><strong>28-30分钟（放松）：</strong>速度4km/h，坡度0，慢走放松</p>
-        <p style="margin-top:10px;color:var(--primary-dark)">? 坚持就是胜利！连续打卡${r.streak}天了，今天也要加油鸭 ?</p>
+        <p style="margin-top:10px;color:var(--primary-dark)">坚持就是胜利！连续打卡${r.streak}天了，今天也要加油！</p>
       </div>
     </div>
   `;
@@ -363,7 +363,7 @@ function renderNotes() {
   return `
     <div class="card">
       <div class="card-header">
-        <div class="card-title"><span class="emoji">?</span>备忘录</div>
+        <div class="card-title">备忘录</div>
         <div class="card-actions">
           <span style="font-size:12px;color:var(--text-light)">自动保存 · 共${notes.length}条</span>
         </div>
@@ -372,14 +372,14 @@ function renderNotes() {
         <textarea id="note-input" placeholder="写点什么...（客人备注、灵感、待办提醒、突然想到的事）" style="width:100%;min-height:80px;padding:12px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;resize:vertical;outline:none"></textarea>
         <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
           <input id="note-tag" placeholder="标签（如：客人/灵感/提醒）" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;width:140px;outline:none">
-          <button class="btn btn-primary" style="padding:8px 20px" onclick="addNote()">? 添加</button>
+          <button class="btn btn-primary" style="padding:8px 20px" onclick="addNote()">添加</button>
         </div>
       </div>
       <div id="notes-list">
         ${notes.length === 0 ? `
           <div style="text-align:center;padding:40px 0;color:var(--text-light)">
-            <div style="font-size:40px;margin-bottom:10px">?</div>
-            <div>还没有备忘，写第一条吧～</div>
+            <div style="font-size:18px;margin-bottom:10px">还没有备忘</div>
+            <div>写第一条吧～</div>
           </div>
         ` : notes.map((n, i) => `
           <div class="note-item" style="border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px;background:#fff;position:relative">
@@ -389,8 +389,8 @@ function renderNotes() {
             </div>
             <div style="font-size:14px;line-height:1.7;white-space:pre-wrap;color:var(--text)">${escapeHtml(n.content)}</div>
             <div style="margin-top:8px;text-align:right">
-              <button class="btn btn-sm" onclick="copyNote(${i})">? 复制</button>
-              <button class="btn btn-sm" style="color:var(--danger);border-color:#f8d7da" onclick="deleteNote(${i})">?? 删除</button>
+              <button class="btn btn-sm" onclick="copyNote(${i})">复制</button>
+              <button class="btn btn-sm" style="color:var(--danger);border-color:#f8d7da" onclick="deleteNote(${i})">删除</button>
             </div>
           </div>
         `).join('')}
@@ -407,31 +407,31 @@ function addNote() {
   const input = document.getElementById('note-input');
   const tagInput = document.getElementById('note-tag');
   const content = input.value.trim();
-  if (!content) { showToast('?? 内容不能为空'); return; }
+  if (!content) { showToast('内容不能为空'); return; }
   const notes = getNotes();
   const now = new Date();
   notes.unshift({ content, tag: tagInput.value.trim() || '备忘', time: `${now.getMonth()+1}/${now.getDate()} ${now.toTimeString().slice(0,5)}` });
   saveNotes(notes);
-  showToast('? 备忘已保存');
+  showToast('备忘已保存');
   render();
 }
 function deleteNote(index) {
   const notes = getNotes();
   notes.splice(index, 1);
   saveNotes(notes);
-  showToast('?? 已删除');
+  showToast('已删除');
   render();
 }
 function copyNote(index) {
   const notes = getNotes();
   const content = notes[index].content;
-  navigator.clipboard.writeText(content).then(() => showToast('? 已复制')).catch(() => {
+  navigator.clipboard.writeText(content).then(() => showToast('已复制')).catch(() => {
     const ta = document.createElement('textarea');
     ta.value = content;
     document.body.appendChild(ta); ta.select();
     document.execCommand('copy');
     document.body.removeChild(ta);
-    showToast('? 已复制');
+    showToast('已复制');
   });
 }
 function escapeHtml(str) { return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
@@ -479,71 +479,71 @@ function renderBudget() {
     <div class="budget-today-card ${isOver ? 'over' : 'ok'}">
       <div class="budget-today-top">
         <div>
-          <div class="budget-today-label">? ${today.replace(/-/g,'/')} 今日预算</div>
-          <div class="budget-today-amount">?${todayBudget.toFixed(1)}</div>
-          ${hasYesterday ? `<div style="font-size:11px;opacity:0.85;margin-top:4px">${yesterdayRemain >= 0 ? `? 含昨日结余 ?${yesterdayRemain.toFixed(1)}` : `?? 含昨日超支 ?${Math.abs(yesterdayRemain).toFixed(1)}`}</div>` : ''}
+          <div class="budget-today-label">${today.replace(/-/g,'/')} 今日预算</div>
+          <div class="budget-today-amount">${todayBudget.toFixed(1)}元</div>
+          ${hasYesterday ? `<div style="font-size:11px;opacity:0.85;margin-top:4px">${yesterdayRemain >= 0 ? `含昨日结余 ${yesterdayRemain.toFixed(1)}元` : `含昨日超支 ${Math.abs(yesterdayRemain).toFixed(1)}元`}</div>` : ''}
         </div>
         <div style="text-align:right">
-          <div class="budget-today-label">${isOver ? '?? 已超支' : '? 还能花'}</div>
-          <div class="budget-today-remain ${isOver ? 'text-over' : 'text-ok'}">${isOver ? '-' : ''}?${Math.abs(todayRemain).toFixed(1)}</div>
+          <div class="budget-today-label">${isOver ? '已超支' : '还能花'}</div>
+          <div class="budget-today-remain ${isOver ? 'text-over' : 'text-ok'}">${isOver ? '-' : ''}${Math.abs(todayRemain).toFixed(1)}元</div>
         </div>
       </div>
       <div class="budget-progress-bar">
         <div class="budget-progress-fill ${isOver ? 'over' : 'ok'}" style="width:${Math.min(100, (todayTotal/todayBudget)*100)}%"></div>
       </div>
       <div class="budget-today-stats">
-        <div class="budget-stat"><div class="val">?${todayTotal.toFixed(1)}</div><div class="lbl">今日已花</div></div>
+        <div class="budget-stat"><div class="val">${todayTotal.toFixed(1)}元</div><div class="lbl">今日已花</div></div>
         <div class="budget-stat"><div class="val">${todayRecords.length}</div><div class="lbl">笔数</div></div>
-        <div class="budget-stat"><div class="val">?${weekTotal.toFixed(1)}</div><div class="lbl">本周累计</div></div>
-        <div class="budget-stat"><div class="val">?${monthTotal.toFixed(1)}</div><div class="lbl">本月累计</div></div>
+        <div class="budget-stat"><div class="val">${weekTotal.toFixed(1)}元</div><div class="lbl">本周累计</div></div>
+        <div class="budget-stat"><div class="val">${monthTotal.toFixed(1)}元</div><div class="lbl">本月累计</div></div>
       </div>
     </div>
 
     <div class="card">
       <div class="card-header">
-        <div class="card-title"><span class="emoji">??</span>记一笔</div>
+        <div class="card-title">记一笔</div>
       </div>
       <div class="budget-input-row">
         <select id="budget-category" class="budget-select">
-          <option value="餐饮">? 餐饮</option>
-          <option value="交通">? 交通</option>
-          <option value="买菜">? 买菜</option>
-          <option value="购物">?? 购物</option>
-          <option value="咖啡">? 咖啡</option>
-          <option value="零食">? 零食</option>
-          <option value="日用">? 日用</option>
-          <option value="其他">? 其他</option>
+          <option value="餐饮">餐饮</option>
+          <option value="交通">交通</option>
+          <option value="买菜">买菜</option>
+          <option value="购物">购物</option>
+          <option value="咖啡">咖啡</option>
+          <option value="零食">零食</option>
+          <option value="日用">日用</option>
+          <option value="其他">其他</option>
         </select>
         <input id="budget-amount" type="number" step="0.1" placeholder="金额" class="budget-amount-input">
         <input id="budget-note" placeholder="备注（选填）" class="budget-note-input">
-        <button class="btn btn-primary budget-add-btn" onclick="addBudgetRecord()">? 记账</button>
+        <button class="btn btn-primary budget-add-btn" onclick="addBudgetRecord()">记账</button>
       </div>
     </div>
 
     <div class="card">
       <div class="card-header">
-        <div class="card-title"><span class="emoji">?</span>今日明细</div>
-        <div class="card-actions"><span style="font-size:12px;color:var(--text-light)">共${todayRecords.length}笔 · ?${todayTotal.toFixed(1)}</span></div>
+        <div class="card-title">今日明细</div>
+        <div class="card-actions"><span style="font-size:12px;color:var(--text-light)">共${todayRecords.length}笔 · ${todayTotal.toFixed(1)}元</span></div>
       </div>
       ${todayRecords.length === 0 ? `
         <div style="text-align:center;padding:30px;color:var(--text-light)">
-          <div style="font-size:32px;margin-bottom:8px">?</div>
-          <div style="font-size:13px">今天还没记账，记第一笔吧～</div>
+          <div style="font-size:14px;margin-bottom:8px">今天还没记账</div>
+          <div style="font-size:13px">记第一笔吧～</div>
         </div>
       ` : todayRecords.map((r, i) => `
         <div class="budget-record-item">
           <span class="budget-record-cat">${r.category}</span>
           <span class="budget-record-note">${r.note ? escapeHtml(r.note) : ''}</span>
           <span class="budget-record-time">${r.time}</span>
-          <span class="budget-record-amount">-?${r.amount.toFixed(1)}</span>
-          <button class="budget-record-del" onclick="deleteBudgetRecord('${today}', ${i})">?</button>
+          <span class="budget-record-amount">-${r.amount.toFixed(1)}元</span>
+          <button class="budget-record-del" onclick="deleteBudgetRecord('${today}', ${i})">删</button>
         </div>
       `).join('')}
     </div>
 
     <div class="card">
       <div class="card-header">
-        <div class="card-title"><span class="emoji">?</span>历史记录（最近7天）</div>
+        <div class="card-title">历史记录（最近7天）</div>
       </div>
       ${historyDates.length === 0 ? `<div style="text-align:center;padding:20px;color:var(--text-light);font-size:13px">暂无历史记录</div>` : historyDates.map(d => {
         const records = data[d] || [];
@@ -560,8 +560,8 @@ function renderBudget() {
               <span style="font-size:11px;color:var(--text-light);margin-left:6px">${records.length}笔</span>
             </div>
             <div class="budget-history-amount">
-              <span style="color:var(--text);font-weight:600">?${total.toFixed(1)}</span>
-              <span class="budget-history-status ${dayOver ? 'over' : 'ok'}">${dayOver ? `超支 ?${Math.abs(remain).toFixed(1)}` : `结余 ?${remain.toFixed(1)}`}</span>
+              <span style="color:var(--text);font-weight:600">${total.toFixed(1)}元</span>
+              <span class="budget-history-status ${dayOver ? 'over' : 'ok'}">${dayOver ? `超支 ${Math.abs(remain).toFixed(1)}元` : `结余 ${remain.toFixed(1)}元`}</span>
             </div>
           </div>
         `;
@@ -570,14 +570,14 @@ function renderBudget() {
 
     <div class="card">
       <div class="card-header">
-        <div class="card-title"><span class="emoji">?</span>记账说明</div>
+        <div class="card-title">记账说明</div>
       </div>
       <div style="font-size:13px;line-height:1.9;color:var(--text-light)">
-        <p>? 每日预算：<strong>?${DAILY_BUDGET}</strong></p>
-        <p>? 每天记录支出后，自动计算当天总和与剩余</p>
-        <p>? 今日预算含昨日结余（或扣除昨日超支），滚动计算</p>
-        <p>? 超出预算显示红色，有结余显示绿色</p>
-        <p>? 数据存在手机本地，不会丢失</p>
+        <p>每日预算：<strong>${DAILY_BUDGET}元</strong></p>
+        <p>每天记录支出后，自动计算当天总和与剩余</p>
+        <p>今日预算含昨日结余（或扣除昨日超支），滚动计算</p>
+        <p>超出预算显示红色，有结余显示绿色</p>
+        <p>数据存在手机本地，不会丢失</p>
       </div>
     </div>
   `;
@@ -587,19 +587,19 @@ function addBudgetRecord() {
   const category = document.getElementById('budget-category').value;
   const amount = parseFloat(document.getElementById('budget-amount').value);
   const note = document.getElementById('budget-note').value.trim();
-  if (!amount || amount <= 0) { showToast('?? 请输入有效金额'); return; }
+  if (!amount || amount <= 0) { showToast('请输入有效金额'); return; }
   const data = getBudgetData();
   const today = getTodayStr();
   if (!data[today]) data[today] = [];
   const now = new Date();
   data[today].push({ category, amount, note, time: `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}` });
   saveBudgetData(data);
-  showToast(`? 已记账 ?${amount.toFixed(1)}`);
+  showToast(`已记账 ${amount.toFixed(1)}元`);
   render();
 }
 function deleteBudgetRecord(date, index) {
   const data = getBudgetData();
-  if (data[date]) { data[date].splice(index, 1); if (data[date].length === 0) delete data[date]; saveBudgetData(data); showToast('?? 已删除'); render(); }
+  if (data[date]) { data[date].splice(index, 1); if (data[date].length === 0) delete data[date]; saveBudgetData(data); showToast('已删除'); render(); }
 }
 
 /* ---------- 渲染份子钱账本 ---------- */
@@ -619,43 +619,43 @@ function renderGift() {
     <div class="gift-summary-card ${balance >= 0 ? 'positive' : 'negative'}">
       <div class="gift-summary-top">
         <div>
-          <div style="font-size:12px;opacity:0.9">? 份子钱总账</div>
-          <div style="font-size:32px;font-weight:700;margin-top:4px">${balance >= 0 ? '+' : ''}?${balance.toFixed(0)}</div>
+          <div style="font-size:12px;opacity:0.9">份子钱总账</div>
+          <div style="font-size:32px;font-weight:700;margin-top:4px">${balance >= 0 ? '+' : ''}${balance.toFixed(0)}元</div>
           <div style="font-size:11px;opacity:0.85;margin-top:2px">${balance >= 0 ? '收大于送，美滋滋' : '送多了，心疼…'}</div>
         </div>
         <div style="text-align:right"><div style="font-size:11px;opacity:0.85">共 ${gifts.length} 笔</div></div>
       </div>
       <div class="gift-stats-row">
-        <div class="gift-stat"><div class="val">?${totalIn.toFixed(0)}</div><div class="lbl">? 收到 (${countIn}笔)</div></div>
-        <div class="gift-stat"><div class="val">?${totalOut.toFixed(0)}</div><div class="lbl">? 送出 (${countOut}笔)</div></div>
+        <div class="gift-stat"><div class="val">${totalIn.toFixed(0)}元</div><div class="lbl">收到 (${countIn}笔)</div></div>
+        <div class="gift-stat"><div class="val">${totalOut.toFixed(0)}元</div><div class="lbl">送出 (${countOut}笔)</div></div>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-header"><div class="card-title"><span class="emoji">??</span>记一笔份子钱</div></div>
+      <div class="card-header"><div class="card-title">记一笔份子钱</div></div>
       <div class="gift-input-area">
         <div class="gift-input-row">
-          <select id="gift-type" class="gift-type-select"><option value="收">? 收到</option><option value="送">? 送出</option></select>
+          <select id="gift-type" class="gift-type-select"><option value="收">收到</option><option value="送">送出</option></select>
           <input id="gift-amount" type="number" step="100" placeholder="金额（元）" class="gift-amount-input">
           <input id="gift-name" placeholder="对方姓名" class="gift-name-input">
         </div>
         <div class="gift-input-row">
           <input id="gift-event" placeholder="什么事（结婚/满月/乔迁…）" class="gift-event-input">
           <input id="gift-date" type="date" class="gift-date-input">
-          <button class="btn btn-primary gift-add-btn" onclick="addGiftRecord()">? 记录</button>
+          <button class="btn btn-primary gift-add-btn" onclick="addGiftRecord()">记录</button>
         </div>
       </div>
     </div>
 
     <div class="card">
       <div class="card-header">
-        <div class="card-title"><span class="emoji">?</span>份子钱明细</div>
+        <div class="card-title">份子钱明细</div>
         <div class="card-actions"><span style="font-size:12px;color:var(--text-light)">共${gifts.length}笔</span></div>
       </div>
       ${sorted.length === 0 ? `
         <div style="text-align:center;padding:30px;color:var(--text-light)">
-          <div style="font-size:32px;margin-bottom:8px">?</div>
-          <div style="font-size:13px">还没有记录，记第一笔吧～</div>
+          <div style="font-size:14px;margin-bottom:8px">还没有记录</div>
+          <div style="font-size:13px">记第一笔吧～</div>
         </div>
       ` : sorted.map(g => `
         <div class="gift-record-item">
@@ -664,19 +664,19 @@ function renderGift() {
             <div class="gift-record-name">${escapeHtml(g.name)} <span style="font-size:11px;color:var(--text-light)">· ${escapeHtml(g.event || '未填写')}</span></div>
             <div class="gift-record-date">${g.date || '未填日期'}</div>
           </div>
-          <div class="gift-record-amount ${g.type === '收' ? 'in' : 'out'}">${g.type === '收' ? '+' : '-'}?${g.amount.toFixed(0)}</div>
-          <button class="gift-record-del" onclick="deleteGiftRecord('${g.id}')">?</button>
+          <div class="gift-record-amount ${g.type === '收' ? 'in' : 'out'}">${g.type === '收' ? '+' : '-'}${g.amount.toFixed(0)}元</div>
+          <button class="gift-record-del" onclick="deleteGiftRecord('${g.id}')">删</button>
         </div>
       `).join('')}
     </div>
 
     <div class="card">
-      <div class="card-header"><div class="card-title"><span class="emoji">?</span>使用说明</div></div>
+      <div class="card-header"><div class="card-title">使用说明</div></div>
       <div style="font-size:13px;line-height:1.9;color:var(--text-light)">
-        <p>? 记录每笔份子钱：收到/送出、金额、对方姓名、什么事</p>
-        <p>? 自动统计总收入、总送出、结余</p>
-        <p>? 结余为正=收大于送，结余为负=送多了</p>
-        <p>? 数据存在手机本地，不会丢失</p>
+        <p>记录每笔份子钱：收到/送出、金额、对方姓名、什么事</p>
+        <p>自动统计总收入、总送出、结余</p>
+        <p>结余为正=收大于送，结余为负=送多了</p>
+        <p>数据存在手机本地，不会丢失</p>
       </div>
     </div>
   `;
@@ -688,19 +688,19 @@ function addGiftRecord() {
   const name = document.getElementById('gift-name').value.trim();
   const event = document.getElementById('gift-event').value.trim();
   const date = document.getElementById('gift-date').value;
-  if (!amount || amount <= 0) { showToast('?? 请输入金额'); return; }
-  if (!name) { showToast('?? 请输入对方姓名'); return; }
+  if (!amount || amount <= 0) { showToast('请输入金额'); return; }
+  if (!name) { showToast('请输入对方姓名'); return; }
   const gifts = getGiftData();
   const now = new Date();
   gifts.push({ id: 'g' + Date.now(), type, amount, name, event, date: date || getTodayStr(), time: `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}` });
   saveGiftData(gifts);
-  showToast(`? 已记录 ${type} ?${amount.toFixed(0)}`);
+  showToast(`已记录 ${type} ${amount.toFixed(0)}元`);
   render();
 }
 function deleteGiftRecord(id) {
   const gifts = getGiftData();
   const index = gifts.findIndex(g => g.id === id);
-  if (index >= 0) { gifts.splice(index, 1); saveGiftData(gifts); showToast('?? 已删除'); render(); }
+  if (index >= 0) { gifts.splice(index, 1); saveGiftData(gifts); showToast('已删除'); render(); }
 }
 
 /* ---------- 待办状态本地存储 ---------- */
@@ -728,7 +728,7 @@ function toggleTodo(id) {
     WORKBENCH_DATA.todos.forEach(t => { if (t.done) doneMap[t.id] = true; });
     saveTodoDoneState(doneMap);
     render();
-    if (todo.done) showToast('? 完成一项！继续加油');
+    if (todo.done) showToast('完成一项！继续加油');
   }
 }
 function toggleRecipe(i) { const cards = document.querySelectorAll('.recipe-card'); if (cards[i]) cards[i].classList.toggle('expanded'); }
@@ -737,10 +737,10 @@ function completeRun() {
     WORKBENCH_DATA.run.today = WORKBENCH_DATA.run.target;
     WORKBENCH_DATA.run.streak += 1;
     render();
-    showToast('? 跑步打卡完成！真棒');
+    showToast('跑步打卡完成！真棒');
   } else { showToast('今日已完成打卡'); }
 }
-function refreshHot() { showToast('? 热点每小时更新，请稍后刷新'); }
+function refreshHot() { showToast('热点每小时更新，请稍后刷新'); }
 function showToast(msg) {
   const existing = document.querySelector('.toast');
   if (existing) existing.remove();
